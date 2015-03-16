@@ -8,12 +8,21 @@
 *.war
 *.ear
 
-# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
-.idea/
-*.ipr
+# idea file and directories
+.idea
 *.iml
+*.ipr
 *.iws
-out/
-.idea_modules/
-atlassian-ide-plugin.xml
-com_crashlytics_export_strings.xml
+
+# gradle
+.gradle
+build
+gradle
+
+
+# svg file
+*.svg
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+/target
