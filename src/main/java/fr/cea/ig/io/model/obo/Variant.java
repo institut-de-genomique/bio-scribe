@@ -1,10 +1,7 @@
 package fr.cea.ig.io.model.obo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import java.util.*;
 
 public class Variant implements Iterable<Term> {
 
@@ -26,13 +23,13 @@ public class Variant implements Iterable<Term> {
      * Result is wrote into variable named variantsList as this function used
      * his reference
      * @param terms two dimensional list, the second dimension tell which term is possible to find
-     * @param variantsList convert terms to Disjunctive normal form.
+     * @param variantsList convert terms to Disjunctive normal form. It is an inout variable.
      */
-    public static void getVariant( final List<List<Term>> terms, List<Variant> variantsList ){
+    public static void getVariant( @NotNull final List<List<Term>> terms, @NotNull List<Variant> variantsList ){
         getVariant( terms, variantsList, 0, 0 );
     }
     
-    private static void getVariant( final List<List<Term>> terms, List<Variant> variantsList, final int line , final int column ){
+    private static void getVariant( @NotNull final List<List<Term>> terms, @NotNull List<Variant> variantsList, final int line , final int column ){
         Variant variant  = null;
         if(  line < terms.size() && column < terms.get(line).size() ){
             if( variantsList.size() > 0 ){
@@ -64,7 +61,7 @@ public class Variant implements Iterable<Term> {
     }
 
 
-    public Variant( final Term term ){
+    public Variant( @NotNull final Term term ){
         synchronized (countLock) {
             idCounter++;
             id      = idCounter;
@@ -73,7 +70,7 @@ public class Variant implements Iterable<Term> {
         incrementCount();
     }
 
-    public Variant( final List<Term> termList ){
+    public Variant( @NotNull final List<Term> termList ){
         synchronized (countLock) {
             idCounter++;
             id      = idCounter;
@@ -82,7 +79,7 @@ public class Variant implements Iterable<Term> {
     }
 
 
-    public Variant( final List<Term> termList, Set<String> variantId  ){
+    public Variant( @NotNull final List<Term> termList, @NotNull Set<String> variantId  ){
         synchronized (countLock) {
             idCounter++;
             id      = idCounter;
@@ -92,10 +89,10 @@ public class Variant implements Iterable<Term> {
     }
 
 
-    public boolean hasVariantOf( final Term term ) {
+    public boolean hasVariantOf( @NotNull final Term term ) {
         boolean         result          = termVariant.contains( term.getId() );
         boolean         isRunning       = true;
-        Iterator<Term>  iter  = childs.iterator();
+        Iterator<Term>  iter            = childs.iterator();
         Term   currentTerm = null;
         
         if( ! result ){
@@ -127,17 +124,17 @@ public class Variant implements Iterable<Term> {
     }
 
 
-    public void add ( final int position, final Term node ){ // maybe check if node is not a variant and raise an error if it is
+    public void add ( final int position, @NotNull final Term node ){ // maybe check if node is not a variant and raise an error if it is
         childs.add(position, node);
     }
 
 
-    public void add ( final Term term ){
+    public void add ( @NotNull final Term term ){
         childs.add( term );
     }
 
 
-    public void addAll ( final List<Term> terms ){
+    public void addAll ( @NotNull final List<Term> terms ){
         childs.addAll( terms );
     }
 
@@ -147,7 +144,7 @@ public class Variant implements Iterable<Term> {
     }
 
 
-    public void addAll ( final Variant variant ){
+    public void addAll ( @NotNull final Variant variant ){
         childs.addAll( variant.getTerms() );
         termVariant.addAll( variant.getTermVariant() );
     }
@@ -172,7 +169,7 @@ public class Variant implements Iterable<Term> {
     public boolean has( final String termId ){
         boolean                 isRunning   = true;
         boolean                 isPresent   = false;
-        Iterator<Term>  iter       = childs.iterator();
+        Iterator<Term>          iter        = childs.iterator();
         Term   currentTerm = null;
         
         while( isRunning ){

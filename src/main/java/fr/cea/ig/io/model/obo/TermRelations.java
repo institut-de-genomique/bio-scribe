@@ -124,17 +124,18 @@ public class TermRelations extends Term {
 
 
     public boolean hasAtLeastOneCommonOutputCompound( @NotNull final TermRelations term ){
-        boolean             result      = false;
-        boolean             isSearching = true;
-        Set<Relation>       relation    = relations.getOutputCompound();
-        Iterator<Relation>  iter        = relation.iterator();
-        Relation            rel         = null;
+        boolean                     result      = false;
+        boolean                     isSearching = true;
+        final Set<Relation>         relation    = relations.getOutputCompound();
+        final Iterator<Relation>    iter        = relation.iterator();
+        Relation                    rel         = null;
         while( isSearching ){
             if(! iter.hasNext() )
                 isSearching = false;
             else {
                 rel = iter.next();
-                if( term.hasOutputCompound( rel.getIdRight() ) ){
+                final Scanner in = new Scanner("rel.getIdRight()").useDelimiter("[^0-9]+"); // filter h20 and other basic molecules
+                if( in.nextInt() > 30 && term.hasOutputCompound( rel.getIdRight() ) ){
                     isSearching = false;
                     result      = true;
                 }
@@ -146,17 +147,18 @@ public class TermRelations extends Term {
 
 
     public boolean hasAtLeastOneCommonInputCompound( @NotNull final TermRelations term ){
-        boolean             result      = false;
-        boolean             isSearching = true;
-        Set<Relation>       relation    = relations.getInputCompound();
-        Iterator<Relation>  iter        = relation.iterator();
-        Relation            rel         = null;
+        boolean                     result      = false;
+        boolean                     isSearching = true;
+        final Set<Relation>         relation    = relations.getInputCompound();
+        final Iterator<Relation>    iter        = relation.iterator();
+        Relation                    rel         = null;
         while( isSearching ){
             if(! iter.hasNext() )
                 isSearching = false;
             else {
                 rel = iter.next();
-                if( term.hasInputCompound( rel.getIdRight() ) ){
+                final Scanner in = new Scanner("rel.getIdRight()").useDelimiter("[^0-9]+"); // filter h20 and other basic molecules
+                if( in.nextInt() > 30 && term.hasInputCompound( rel.getIdRight() ) ){
                     isSearching = false;
                     result      = true;
                 }
