@@ -134,7 +134,7 @@ public class TermRelations extends Term {
                 isSearching = false;
             else {
                 rel = iter.next();
-                final Scanner in = new Scanner("rel.getIdRight()").useDelimiter("[^0-9]+"); // filter h20 and other basic molecules
+                final Scanner in = new Scanner(rel.getIdRight()).useDelimiter("[^0-9]+"); // filter h20 and other basic molecules
                 if( in.nextInt() > 30 && term.hasOutputCompound( rel.getIdRight() ) ){
                     isSearching = false;
                     result      = true;
@@ -157,7 +157,7 @@ public class TermRelations extends Term {
                 isSearching = false;
             else {
                 rel = iter.next();
-                final Scanner in = new Scanner("rel.getIdRight()").useDelimiter("[^0-9]+"); // filter h20 and other basic molecules
+                final Scanner in = new Scanner(rel.getIdRight()).useDelimiter("[^0-9]+"); // filter h20 and other basic molecules
                 if( in.nextInt() > 30 && term.hasInputCompound( rel.getIdRight() ) ){
                     isSearching = false;
                     result      = true;
