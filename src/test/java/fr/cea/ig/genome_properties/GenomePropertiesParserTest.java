@@ -1,4 +1,4 @@
-package fr.cea.ig.grools.genome_properties;
+package fr.cea.ig.genome_properties;
 /*
  * Copyright LABGeM 12/08/15
  *
@@ -36,6 +36,8 @@ package fr.cea.ig.grools.genome_properties;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+//import fr.cea.ig.genome_properties.GenomePropertiesParser;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,8 +47,8 @@ import org.junit.Test;
 //import javax.validation.ValidatorFactory;
 
 
-import fr.cea.ig.grools.genome_properties.model.GenomePropertyImpl;
-import fr.cea.ig.grools.genome_properties.model.Term;
+import fr.cea.ig.genome_properties.model.GenomePropertyImpl;
+import fr.cea.ig.genome_properties.model.Term;
 import java.net.URL;
 //import java.util.Set;
 

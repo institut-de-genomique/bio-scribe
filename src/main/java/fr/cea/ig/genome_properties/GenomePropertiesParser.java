@@ -31,19 +31,22 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package fr.cea.ig.grools.genome_properties;
+package fr.cea.ig.genome_properties;
 
-import fr.cea.ig.grools.genome_properties.model.*;
+import fr.cea.ig.genome_properties.model.*;
 
 import javax.validation.constraints.NotNull;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GenomePropertiesParser {
+public class GenomePropertiesParser  implements Iterable{
     private static final int PAGE_SIZE              = 4_096;
     private static final int DEFAULT_NUMBER_PAGE    = 10;
     private Map<String,Term> terms;
@@ -145,5 +148,17 @@ public class GenomePropertiesParser {
 
     public Term getTerm(@NotNull final String s) {
         return terms.get( s );
+    }
+
+    @Override
+    public Iterator iterator() {
+        return terms.entrySet().iterator();
+    }
+
+    public void forEach(BiConsumer<String,? super Term> action){
+        Objects.requireNonNull(action);
+        for (Map.Entry<String, Term> entry : terms.entrySet()) {
+            action.accept( entry.getKey(), entry.getValue() );
+        }
     }
 }
