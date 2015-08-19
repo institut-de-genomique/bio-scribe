@@ -1,4 +1,3 @@
-package fr.cea.ig.genome_properties;
 /*
  * Copyright LABGeM 12/08/15
  *
@@ -38,31 +37,41 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 //import fr.cea.ig.genome_properties.GenomePropertiesParser;
+import fr.cea.ig.genome_properties.GenomePropertiesParser;
+import fr.cea.ig.genome_properties.model.GenomeProperty;
+import fr.cea.ig.genome_properties.model.PropertyComponent;
 import org.junit.Before;
 import org.junit.Test;
 
-//import javax.validation.ConstraintViolation;
-//import javax.validation.Validation;
-//import javax.validation.Validator;
-//import javax.validation.ValidatorFactory;
 
 
 import fr.cea.ig.genome_properties.model.GenomePropertyImpl;
 import fr.cea.ig.genome_properties.model.Term;
-import java.net.URL;
-//import java.util.Set;
 
-public class GenomePropertiesParserTest {
+import javax.validation.constraints.NotNull;
+import java.io.InputStream;
+
+public final class GenomePropertiesParserTest {
+
+    @NotNull
+    private InputStream getFile(@NotNull final String fileName) {
+        ClassLoader classLoader = getClass().getClassLoader();
+
+        return classLoader.getResourceAsStream(fileName);
+
+    }
+
     private GenomePropertiesParser genomePropertiesParser;
-    private static URL file = Thread.currentThread().getContextClassLoader()
-                                                    .getResource("GenProp_3.2_release.RDF");
+    private InputStream stream;
 
 
 
     @Before
     public void setUp(){
+        stream = getFile("GenProp_3.2_release.RDF");
+        assertNotNull( stream) ;
         try {
-            genomePropertiesParser = new GenomePropertiesParser( file.getPath() );
+            genomePropertiesParser = new GenomePropertiesParser( stream );
         } catch ( Exception e) {
             e.printStackTrace();
         }
@@ -72,6 +81,7 @@ public class GenomePropertiesParserTest {
     @Test
     public void testGetTerm() {
         final Term term    = genomePropertiesParser.getTerm("gp:Genome_Property_51171");
+        assertNotNull(term);
         assertEquals( term.getId(), "51171" );
         assertTrue( term instanceof GenomePropertyImpl);
         GenomePropertyImpl genomeProperty = (GenomePropertyImpl)term;
@@ -80,6 +90,22 @@ public class GenomePropertiesParserTest {
         assertEquals(genomeProperty.getThreshold()  , 6);
         assertEquals(genomeProperty.getTitle()      , "lysine biosynthesis via alpha-aminoadipate (AAA pathway)");
         assertEquals(genomeProperty.getDefinition() , "Lysine biosynthesis in fungi has been characterized and begins with the condensation of 2-oxoglutarate and acetyl-CoA to homocitrate and continues through the distinctive intermediate, alpha-aminoadipate. This pathway is distinct in every respect from the diaminopimelate pathway commonly found in bacteria and animals. Recently, an alpha-aminoadipate pathway closely related to the fungal version has been characterized in Thermus thermophilus [1] and appears to be widely distributed among the archaea.");
+    }
+
+
+
+    @Test
+    public void testTermHierarchy() {
+        final Term term42736    = genomePropertiesParser.getTerm("gp:Property_Component_42736");
+        assertNotNull(term42736);
+        assertTrue( term42736 instanceof PropertyComponent);
+        final PropertyComponent component42736  = (PropertyComponent) term42736;
+        final Term              parent          = component42736.getRequiredBy();
+        assertNotNull(parent);
+        GenomeProperty property51171 = (GenomeProperty) parent;
+        assertEquals(property51171.getName(), "gp:Genome_Property_51171");
+        assertNotNull( genomePropertiesParser.getTerm(property51171.getName()) );
+
     }
 
 //    @Test
