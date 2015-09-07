@@ -229,4 +229,48 @@ public class GenomePropertiesParser  implements Iterable{
             action.accept( entry.getKey(), entry.getValue() );
         }
     }
+
+    public Term getTermFromId( @NotNull final String id, @NotNull final Class clazz ){
+        Term                                result      = null;
+        Iterator<Map.Entry<String,Term>>    iter        = terms.entrySet().iterator();
+        boolean     isSearching = true;
+        while( isSearching){
+            if( ! iter.hasNext() )
+                isSearching = false;
+            else {
+                final Map.Entry<String,Term> entry =  iter.next();
+                final Term current = entry.getValue();
+                if (clazz.isInstance(current) && current.getId().equals(id)){
+                    isSearching = false;
+                    result = current;
+                }
+            }
+        }
+        return result;
+    }
+
+    public GenomeProperty getTermFromAccession( @NotNull final String accession ){
+        final Class                         clazz       = GenomeProperty.class;
+        GenomeProperty                      result      = null;
+        Iterator<Map.Entry<String,Term>>    iter        = terms.entrySet().iterator();
+        boolean     isSearching = true;
+        while( isSearching){
+            if( ! iter.hasNext() )
+                isSearching = false;
+            else {
+                final Map.Entry<String,Term> entry =  iter.next();
+                final Term current = entry.getValue();
+                if (clazz.isInstance(current) && ((GenomeProperty)current).getAccession().equals(accession)){
+                    isSearching = false;
+                    result = (GenomeProperty)current;
+                }
+            }
+        }
+        return result;
+    }
+
+    @NotNull
+    public Set<Map.Entry<String, Term>> entrySet(){
+        return terms.entrySet();
+    }
 }

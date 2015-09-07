@@ -38,15 +38,10 @@ import static org.junit.Assert.assertTrue;
 
 //import fr.cea.ig.genome_properties.GenomePropertiesParser;
 import fr.cea.ig.genome_properties.GenomePropertiesParser;
-import fr.cea.ig.genome_properties.model.GenomeProperty;
-import fr.cea.ig.genome_properties.model.PropertyComponent;
+import fr.cea.ig.genome_properties.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
-
-
-import fr.cea.ig.genome_properties.model.GenomePropertyImpl;
-import fr.cea.ig.genome_properties.model.Term;
 
 import javax.validation.constraints.NotNull;
 import java.io.InputStream;
@@ -106,6 +101,21 @@ public final class GenomePropertiesParserTest {
         assertEquals(property51171.getName(), "gp:Genome_Property_51171");
         assertNotNull( genomePropertiesParser.getTerm(property51171.getName()) );
 
+    }
+
+    @Test
+    public void testGetTermFromId(){
+        final Term term72587 = genomePropertiesParser.getTermFromId("GenProp0633", ComponentEvidence.class);
+        assertNotNull(term72587);
+        assertTrue( term72587 instanceof ComponentEvidence);
+        ComponentEvidence evidence = (ComponentEvidence) term72587;
+        assertEquals(evidence.getCategory(),"GENPROP");
+    }
+    @Test
+    public void testGetTermFromAccession(){
+        final GenomeProperty term58359 = genomePropertiesParser.getTermFromAccession("GenProp0633");
+        assertNotNull(term58359);
+        assertEquals(term58359.getId(),"58359");
     }
 
 //    @Test
