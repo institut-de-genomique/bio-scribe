@@ -45,6 +45,7 @@ import org.junit.Test;
 
 import javax.validation.constraints.NotNull;
 import java.io.InputStream;
+import java.util.Set;
 
 public final class GenomePropertiesParserTest {
 
@@ -105,7 +106,9 @@ public final class GenomePropertiesParserTest {
 
     @Test
     public void testGetTermFromId(){
-        final Term term72587 = genomePropertiesParser.getTermFromId("GenProp0633", ComponentEvidence.class);
+        Set<Term> result = genomePropertiesParser.getTermsWithId( "GenProp0633");
+        assertEquals( 1, result.size() );
+        final Term term72587 = result.iterator().next();
         assertNotNull(term72587);
         assertTrue( term72587 instanceof ComponentEvidence);
         ComponentEvidence evidence = (ComponentEvidence) term72587;

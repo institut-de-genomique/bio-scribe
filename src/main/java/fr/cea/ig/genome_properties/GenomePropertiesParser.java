@@ -42,6 +42,7 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class GenomePropertiesParser  implements Iterable{
     private static final int PAGE_SIZE              = 4_096;
@@ -230,23 +231,11 @@ public class GenomePropertiesParser  implements Iterable{
         }
     }
 
-    public Term getTermFromId( @NotNull final String id, @NotNull final Class clazz ){
-        Term                                result      = null;
-        Iterator<Map.Entry<String,Term>>    iter        = terms.entrySet().iterator();
-        boolean     isSearching = true;
-        while( isSearching){
-            if( ! iter.hasNext() )
-                isSearching = false;
-            else {
-                final Map.Entry<String,Term> entry =  iter.next();
-                final Term current = entry.getValue();
-                if (clazz.isInstance(current) && current.getId().equals(id)){
-                    isSearching = false;
-                    result = current;
-                }
-            }
-        }
-        return result;
+    public Set<Term> getTermsWithId( @NotNull final String id ){
+        return terms.values()
+                    .stream()
+                    .filter( i-> i.getId().equals(id) )
+                    .collect( Collectors.toSet() );
     }
 
     public GenomeProperty getTermFromAccession( @NotNull final String accession ){
