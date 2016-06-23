@@ -1,6 +1,7 @@
 package fr.cea.ig.io.model.obo;
 
 import javax.validation.constraints.NotNull;
+import java.util.Map;
 import java.util.Set;
 
 // Pathway
@@ -23,11 +24,12 @@ public class UPA extends TermRelations {
      * @param name  name of this aggregated relations
      * @param definition description  aggregated relations
      * @param relations  List of Relation
+     * @param xref cross references with others resources
      * @param isA pathway type
      * @param superPathway Relation to a super pathway
      */
-    public UPA( @NotNull final String id, @NotNull final String name, @NotNull final String definition, final Relations relations, final Set<Relation> isA, final Relation superPathway ) {
-        super(id, name, definition, relations);
+    public UPA(@NotNull final String id, @NotNull final String name, @NotNull final String definition, final Relations relations, final Map<String, Reference> xref, final Set<Relation> isA, final Relation superPathway ) {
+        super(id, name, definition, xref, relations);
         this.isA            = isA;
         this.superPathway   = superPathway;
     }

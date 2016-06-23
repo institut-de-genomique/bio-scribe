@@ -33,7 +33,7 @@ public class Relations {
     private final Set<Relation> input_compound;
     private final Set<Relation> output_compound;
     private final Set<Relation> part_of;
-    
+
     
     private boolean hasCompound( @NotNull final Set<Relation> relations, @NotNull final String id ){
         return hasCompound( relations, id, true );
@@ -123,5 +123,6 @@ public class Relations {
             result.append("relationship:" + item.toString() + "\n");
         return result.toString();
     }
+
 
 }
