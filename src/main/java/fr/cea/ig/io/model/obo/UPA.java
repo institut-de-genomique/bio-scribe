@@ -28,7 +28,7 @@ public class UPA extends TermRelations {
      * @param isA pathway type
      * @param superPathway Relation to a super pathway
      */
-    public UPA(@NotNull final String id, @NotNull final String name, @NotNull final String definition, final Map<String, Reference> xref, final Relations relations, final Set<Relation> isA, final Relation superPathway ) {
+    public UPA(@NotNull final String id, @NotNull final String name, @NotNull final String definition, final Map<String, Set<Reference>> xref, final Relations relations, final Set<Relation> isA, final Relation superPathway ) {
         super(id, name, definition, xref, relations);
         this.isA            = isA;
         this.superPathway   = superPathway;

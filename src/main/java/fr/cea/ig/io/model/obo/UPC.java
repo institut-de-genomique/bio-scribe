@@ -2,6 +2,7 @@ package fr.cea.ig.io.model.obo;
 
 import javax.validation.constraints.NotNull;
 import java.util.Map;
+import java.util.Set;
 
 // Compound
 public class UPC extends Term {
@@ -12,7 +13,7 @@ public class UPC extends Term {
      * @param definition description  aggregated relations
      * @param xref cross references with others resources
      */
-    public UPC(@NotNull final String id, @NotNull final String name, @NotNull final String definition, final Map<String, Reference>xref) {
+    public UPC(@NotNull final String id, @NotNull final String name, @NotNull final String definition, final Map<String, Set<Reference>>xref) {
         super(id, name, definition, xref);
     }
 

@@ -3,6 +3,7 @@ package fr.cea.ig.io.model.obo;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /*
  *
@@ -23,10 +24,10 @@ import java.util.Map;
  */
 public abstract class Term {
 
-    protected final String                  id;
-    protected final String                  name;
-    protected final String                  definition;
-    protected final Map<String,Reference>   xref;
+    protected final String                      id;
+    protected final String                      name;
+    protected final String                      definition;
+    protected final Map<String,Set<Reference>>  xref;
 
     /**
      * @param id Term id
@@ -42,7 +43,7 @@ public abstract class Term {
      * @param definition Term description
      * @param xref Cross references id
      */
-    public Term(@NotNull final String id, @NotNull final String name, @NotNull final String definition, @NotNull final Map<String,Reference> xref ) {
+    public Term(@NotNull final String id, @NotNull final String name, @NotNull final String definition, @NotNull final Map<String,Set<Reference>> xref ) {
         this.id         = id;
         this.name       = name;
         this.definition = definition;
@@ -61,7 +62,7 @@ public abstract class Term {
         return definition;
     }
 
-    public Map<String,Reference> getXref(){
+    public Map<String,Set<Reference>> getXref(){
         return xref;
     }
 
@@ -69,7 +70,7 @@ public abstract class Term {
         return xref.containsKey(ref);
     }
 
-    public Reference getXref( @NotNull final String ref){
+    public Set<Reference> getXref( @NotNull final String ref){
         return xref.get(ref);
     }
 

@@ -2,6 +2,7 @@ package fr.cea.ig.io.model.obo;
 
 import javax.validation.constraints.NotNull;
 import java.util.Map;
+import java.util.Set;
 
 // UER: Enzymatic Reaction
 /*
@@ -23,7 +24,7 @@ public class UER extends TermRelations {
      * @param relations  List of Relation
      * @param xref cross references with others resources
      */
-    public UER(@NotNull final String id, @NotNull final String name, @NotNull final String definition, final Map<String, Reference> xref, Relations relations ) {
+    public UER(@NotNull final String id, @NotNull final String name, @NotNull final String definition, final Map<String, Set<Reference>> xref, Relations relations ) {
         super(id, name, definition, xref, relations);
     }
 

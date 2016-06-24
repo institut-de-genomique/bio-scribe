@@ -9,7 +9,7 @@ import java.util.*;
  * @startuml
  *  class TermRelations extends Term {
  *      * relations     : Relations
- *      * childs        : List<List<Term>>
+ *      * children        : List<List<Term>>
  *      + TermRelations( @NotNull final String id, @NotNull final String name, @NotNull final String definition, Relations relations )
  *      + TermRelations( @NotNull final String id, @NotNull final String name, @NotNull final String definition )
  *      + getRelations()                                : Relations
@@ -29,7 +29,7 @@ import java.util.*;
  *      + addAll( @NotNull final List<List<Term>> terms )  : void
  *      + get( final int index )                        : List<Term>
  *      + iterator()                                    : Iterator<List<Term>>
- *      + getChilds()                                   : List<List<Term>>
+ *      + getChildren()                                   : List<List<Term>>
  *      + toString()                                    : String
  *  }
  * @enduml
@@ -39,7 +39,7 @@ public class TermRelations extends Term {
     protected final Relations relations;
 
 
-    protected List<List<Term>> childs;
+    protected List<List<Term>> children;
 
 
     /**
@@ -49,10 +49,10 @@ public class TermRelations extends Term {
      * @param relations List of Relation
      * @param xref cross references with others resources
      */
-    public TermRelations( @NotNull final String id, @NotNull final String name, @NotNull final String definition, final Map<String, Reference> xref, Relations relations ) {
+    public TermRelations( @NotNull final String id, @NotNull final String name, @NotNull final String definition, final Map<String, Set<Reference>> xref, Relations relations ) {
         super(id, name, definition, xref );
         this.relations  = relations;
-        this.childs     = new ArrayList<List<Term>>();
+        this.children   = new ArrayList<>();
     }
 
     /**
@@ -63,7 +63,7 @@ public class TermRelations extends Term {
     public TermRelations( @NotNull final String id, @NotNull final String name, @NotNull final String definition ) {
         super(id, name, definition );
         this.relations  = new Relations();
-        this.childs     = new ArrayList<List<Term>>();
+        this.children   = new ArrayList<>();
     }
 
 
@@ -222,12 +222,12 @@ public class TermRelations extends Term {
 
     public void add( @NotNull final Term term ){
         boolean                 isSearching = true;
-        Iterator<List<Term>>    iter        = childs.iterator();
+        Iterator<List<Term>>    iter        = children.iterator();
         List<Term>              currentList = null;
         Term                    currentTerm = null;
         
-        if( childs.size() > 0 && childs.get(0).size() > 0 && !(childs.get(0).get(0) instanceof TermRelations) ){
-            childs.add( new ArrayList<Term>( Arrays.asList( term ) ) );
+        if( children.size() > 0 && children.get(0).size() > 0 && !(children.get(0).get(0) instanceof TermRelations) ){
+            children.add( new ArrayList<Term>( Arrays.asList( term ) ) );
             isSearching = false;
         }
         
@@ -242,7 +242,7 @@ public class TermRelations extends Term {
             }
             else{
                 isSearching = false;
-                childs.add( new ArrayList<Term>( Arrays.asList(term) ) );
+                children.add( new ArrayList<Term>( Arrays.asList(term) ) );
             }
         }
         
@@ -250,21 +250,21 @@ public class TermRelations extends Term {
 
 
     public void addAll( @NotNull final List<List<Term>> terms ){
-        childs.addAll(terms);
+        children.addAll(terms);
     }
 
     public List<Term> get( final int index ){
-        return childs.get( index );
+        return children.get( index );
     }
 
 
     public Iterator<List<Term>> iterator(){
-        return childs.iterator();
+        return children.iterator();
     }
 
 
-    public List<List<Term>> getChilds() {
-        return childs;
+    public List<List<Term>> getChildren() {
+        return children;
     }
 
 
