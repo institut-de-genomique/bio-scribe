@@ -21,8 +21,8 @@ apply plugin: 'com.bmuschko.nexus'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-version = '0.3.0'
-group = 'fr.cea.ig'
+version     = projectVersion
+group       = projectGroup
 description = projectDescription
 
 repositories {
@@ -39,12 +39,12 @@ dependencies {
 jar {
     manifest {
         attributes( "Implementation-Title":         projectName,
-                    "Implementation-Version":       version,
+                    "Implementation-Version":       projectVersion,
                     "Implementation-Vendor":        "Genoscope, LABGeM",
                     "Product-Name":                 projectName,
                     "provider":                     "Genoscope",
                     "Created-By":                   "LABGeM",
-                    "description":                  "BROOLS Application.",
+                    "description":                  projectDescription,
                     "Build-Date":                   new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
                     "Build-JDK":                    System.getProperty("java.version"),
                     "Build-Gradle":                 project.gradle.gradleVersion
