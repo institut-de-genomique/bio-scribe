@@ -35,7 +35,9 @@ package fr.cea.ig.model.genome_properties;
 
 
 public interface GenomeProperty extends Term, HasCategory, HasTitle {
-    int    getThreshold();
-    String getDefinition();
-    String getAccession();
+    int getThreshold( );
+    
+    String getDefinition( );
+    
+    String getAccession( );
 }

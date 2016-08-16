@@ -35,6 +35,7 @@ package fr.cea.ig.model.genome_properties;
 
 
 public interface PropertyComponent extends FeatureProperty, HasTitle {
-    GenomeProperty getPartOf();
-    GenomeProperty getRequiredBy();
+    GenomeProperty getPartOf( );
+    
+    GenomeProperty getRequiredBy( );
 }

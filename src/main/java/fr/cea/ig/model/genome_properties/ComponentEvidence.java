@@ -35,5 +35,5 @@ package fr.cea.ig.model.genome_properties;
 
 
 public interface ComponentEvidence extends FeatureProperty, HasCategory {
-    PropertyComponent getSufficientFor();
+    PropertyComponent getSufficientFor( );
 }

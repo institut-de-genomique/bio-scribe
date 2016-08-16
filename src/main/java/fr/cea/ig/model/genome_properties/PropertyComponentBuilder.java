@@ -35,68 +35,68 @@ package fr.cea.ig.model.genome_properties;
 
 import lombok.NonNull;
 
-public class PropertyComponentBuilder  implements TermBuilder<PropertyComponent>, BuildTitle{
+public class PropertyComponentBuilder implements TermBuilder<PropertyComponent>, BuildTitle {
     private GenomeProperty requiredBy;
-    private String name;
-    private String id;
+    private String         name;
+    private String         id;
     private GenomeProperty partOf;
-    private String title;
-    private RelationType relationType;
-
+    private String         title;
+    private RelationType   relationType;
+    
     @NonNull
-    public PropertyComponentBuilder setRequiredBy(@NonNull GenomeProperty requiredBy) {
+    public PropertyComponentBuilder setRequiredBy( @NonNull GenomeProperty requiredBy ) {
         this.requiredBy = requiredBy;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public PropertyComponentBuilder setName(@NonNull final String name) {
+    public PropertyComponentBuilder setName( @NonNull final String name ) {
         this.name = name;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public PropertyComponentBuilder setId(@NonNull final String id) {
+    public PropertyComponentBuilder setId( @NonNull final String id ) {
         this.id = id;
         return this;
     }
-
+    
     @NonNull
-    public PropertyComponentBuilder setPartOf(@NonNull final GenomeProperty partOf) {
+    public PropertyComponentBuilder setPartOf( @NonNull final GenomeProperty partOf ) {
         this.partOf = partOf;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public PropertyComponentBuilder setTitle(@NonNull final String title) {
+    public PropertyComponentBuilder setTitle( @NonNull final String title ) {
         this.title = title;
         return this;
     }
-
+    
     @NonNull
-    public PropertyComponentBuilder setRelationType(@NonNull final RelationType relationType) {
+    public PropertyComponentBuilder setRelationType( @NonNull final RelationType relationType ) {
         this.relationType = relationType;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public PropertyComponent create() {
-        return new PropertyComponentImpl(name, id, title, requiredBy, partOf);
+    public PropertyComponent create( ) {
+        return new PropertyComponentImpl( name, id, title, requiredBy, partOf );
     }
-
+    
     @NonNull
-    public RelationType getRelationType(){
+    public RelationType getRelationType( ) {
         return relationType;
     }
-
+    
     @NonNull
     @Override
-    public String getName() {
+    public String getName( ) {
         return name;
     }
-
+    
 }

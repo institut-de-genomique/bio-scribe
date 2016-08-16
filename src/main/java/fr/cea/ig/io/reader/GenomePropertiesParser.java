@@ -64,222 +64,222 @@ import java.util.stream.Collectors;
 import fr.cea.ig.model.genome_properties.TermBuilder;
 import lombok.NonNull;
 
-public class GenomePropertiesParser  implements Iterable{
-    private static final int PAGE_SIZE              = 4_096;
-    private static final int DEFAULT_NUMBER_PAGE    = 10;
-    private Map<String,Term> terms;
-
+public class GenomePropertiesParser implements Iterable {
+    private static final int PAGE_SIZE           = 4_096;
+    private static final int DEFAULT_NUMBER_PAGE = 10;
+    private Map<String, Term> terms;
+    
     /**
-     * @param input stream from obo file to read
+     * @param input      stream from obo file to read
      * @param numberPage custom number page to used, default 10 page size
      * @throws Exception if an error occur while trying to read the file
      */
-    public GenomePropertiesParser(@NonNull final InputStream input, final int numberPage) throws Exception {
-        final InputStreamReader                          isr           = new InputStreamReader(input, Charset.forName("US-ASCII"));
-        final BufferedReader                             br            = new BufferedReader(isr, PAGE_SIZE * numberPage);
-        final Map<String, Set<PropertyComponentBuilder>> requiredBy    = new HashMap<>();
-        final Map<String, Set<PropertyComponentBuilder>> partOf        = new HashMap<>();
-        final Map<String, Set<ComponentEvidenceBuilder>> sufficientFor = new HashMap<>();
-        final Map<String, TermBuilder>                   termsBuilder  = new HashMap<>();
-        terms                                                          = new HashMap<>();
-        String line = br.readLine();
-        while (line != null) {
-            if( line.startsWith("gp:") ){
+    public GenomePropertiesParser( @NonNull final InputStream input, final int numberPage ) throws Exception {
+        final InputStreamReader                          isr           = new InputStreamReader( input, Charset.forName( "US-ASCII" ) );
+        final BufferedReader                             br            = new BufferedReader( isr, PAGE_SIZE * numberPage );
+        final Map<String, Set<PropertyComponentBuilder>> requiredBy    = new HashMap<>( );
+        final Map<String, Set<PropertyComponentBuilder>> partOf        = new HashMap<>( );
+        final Map<String, Set<ComponentEvidenceBuilder>> sufficientFor = new HashMap<>( );
+        final Map<String, TermBuilder>                   termsBuilder  = new HashMap<>( );
+        terms = new HashMap<>( );
+        String line = br.readLine( );
+        while( line != null ) {
+            if( line.startsWith( "gp:" ) ) {
                 TermBuilder builder = null;
-                if ( line.startsWith("gp:Genome_Property") )
-                    builder = new GenomePropertyBuilder();
-                else if(line.startsWith("gp:Property_Component") )
-                    builder = new PropertyComponentBuilder();
-                else if(line.startsWith("gp:Component_Evidence") )
-                    builder = new ComponentEvidenceBuilder();
+                if( line.startsWith( "gp:Genome_Property" ) )
+                    builder = new GenomePropertyBuilder( );
+                else if( line.startsWith( "gp:Property_Component" ) )
+                    builder = new PropertyComponentBuilder( );
+                else if( line.startsWith( "gp:Component_Evidence" ) )
+                    builder = new ComponentEvidenceBuilder( );
                 else
-                    throw new IOException("Unknown type of terms: "+line);
-                final String name   = line;
-                line                = br.readLine();
+                    throw new IOException( "Unknown type of terms: " + line );
+                final String name = line;
+                line = br.readLine( );
                 builder.setName( name );
                 if( line == null )
-                    throw new IOException("Malformated File");
-                while( ! line.equals( "." )  ){
-                    line = line.trim();
-                    if( line.startsWith(":"))
-                        line = line.substring(1);
-                    if(line.startsWith("accession"))
-                        ((GenomePropertyBuilder) builder).setAccession(getValue(line));
-                    else if(line.startsWith("id"))
-                        builder.setId( getValue(line) );
-                    else if(line.startsWith("a")) {
+                    throw new IOException( "Malformated File" );
+                while( !line.equals( "." ) ) {
+                    line = line.trim( );
+                    if( line.startsWith( ":" ) )
+                        line = line.substring( 1 );
+                    if( line.startsWith( "accession" ) )
+                        ( ( GenomePropertyBuilder ) builder ).setAccession( getValue( line ) );
+                    else if( line.startsWith( "id" ) )
+                        builder.setId( getValue( line ) );
+                    else if( line.startsWith( "a" ) ) {
                         //do nothing
                     }
                     else {
                         final String value = getValue( line );
-                        if (line.startsWith("category"))
-                            ((BuildCategory) builder).setCategory(value);
-                        else if (line.startsWith("threshold"))
-                            ((GenomePropertyBuilder) builder).setThreshold(Integer.parseInt(value));
-                        else if (line.startsWith("title"))
-                            ((BuildTitle) builder).setTitle(value);
-                        else if (line.startsWith("definition"))
-                            ((GenomePropertyBuilder) builder).setDefinition( value );
-                        else if (line.startsWith("required_by")) {
-                            final PropertyComponentBuilder componentBuilder = (PropertyComponentBuilder) builder;
-                            componentBuilder.setRelationType(RelationType.REQUIRED_BY);
-                            Set<PropertyComponentBuilder> childs = requiredBy.get(value);
+                        if( line.startsWith( "category" ) )
+                            ( ( BuildCategory ) builder ).setCategory( value );
+                        else if( line.startsWith( "threshold" ) )
+                            ( ( GenomePropertyBuilder ) builder ).setThreshold( Integer.parseInt( value ) );
+                        else if( line.startsWith( "title" ) )
+                            ( ( BuildTitle ) builder ).setTitle( value );
+                        else if( line.startsWith( "definition" ) )
+                            ( ( GenomePropertyBuilder ) builder ).setDefinition( value );
+                        else if( line.startsWith( "required_by" ) ) {
+                            final PropertyComponentBuilder componentBuilder = ( PropertyComponentBuilder ) builder;
+                            componentBuilder.setRelationType( RelationType.REQUIRED_BY );
+                            Set<PropertyComponentBuilder> childs = requiredBy.get( value );
                             if( childs == null )
-                                childs = new HashSet<>();
-                            childs.add(componentBuilder);
-                            requiredBy.put(value, childs);
+                                childs = new HashSet<>( );
+                            childs.add( componentBuilder );
+                            requiredBy.put( value, childs );
                         }
-                        else if (line.startsWith("sufficient_for")) {
-                            final ComponentEvidenceBuilder evidenceBuilder = (ComponentEvidenceBuilder) builder;
-                            Set<ComponentEvidenceBuilder> childs = sufficientFor.get(value);
+                        else if( line.startsWith( "sufficient_for" ) ) {
+                            final ComponentEvidenceBuilder evidenceBuilder = ( ComponentEvidenceBuilder ) builder;
+                            Set<ComponentEvidenceBuilder>  childs          = sufficientFor.get( value );
                             if( childs == null )
-                                childs = new HashSet<>();
-                            childs.add(evidenceBuilder);
-                            sufficientFor.put(value, childs);
+                                childs = new HashSet<>( );
+                            childs.add( evidenceBuilder );
+                            sufficientFor.put( value, childs );
                         }
-                        else if (line.startsWith("part_of")) {
-                            final PropertyComponentBuilder componentBuilder = (PropertyComponentBuilder) builder;
-                            componentBuilder.setRelationType(RelationType.PART_OF);
-                            Set<PropertyComponentBuilder> childs = partOf.get(value);
+                        else if( line.startsWith( "part_of" ) ) {
+                            final PropertyComponentBuilder componentBuilder = ( PropertyComponentBuilder ) builder;
+                            componentBuilder.setRelationType( RelationType.PART_OF );
+                            Set<PropertyComponentBuilder> childs = partOf.get( value );
                             if( childs == null )
-                                childs = new HashSet<>();
-                            childs.add(componentBuilder);
-                            partOf.put(value, childs);
+                                childs = new HashSet<>( );
+                            childs.add( componentBuilder );
+                            partOf.put( value, childs );
                         }
                         else
-                            throw new IOException("Unknown type of property: " + line);
+                            throw new IOException( "Unknown type of property: " + line );
                     }
-                    line = br.readLine();
+                    line = br.readLine( );
                     if( line == null )
-                        throw new IOException("Malformated File");
+                        throw new IOException( "Malformated File" );
                 }
-                termsBuilder.put(name, builder);
+                termsBuilder.put( name, builder );
             }
-            line = br.readLine();
+            line = br.readLine( );
         }
-        isr.close();
-        br.close();
-
-        for( final Map.Entry<String, Set<PropertyComponentBuilder>> entry : requiredBy.entrySet() ){
-            final String                        propertyName    = entry.getKey();
-            final Set<PropertyComponentBuilder> children        = entry.getValue();
-            final GenomePropertyBuilder         propertyBuilder = (GenomePropertyBuilder) termsBuilder.get(propertyName);
-            final GenomeProperty                property        = propertyBuilder.create();
-            if( ! terms.containsKey(propertyName))
-                terms.put(propertyName, property);
-            for( final PropertyComponentBuilder componentBuilder : children ){
-                componentBuilder.setRequiredBy(property);
-                final PropertyComponent component =  componentBuilder.create();
-                terms.put(component.getName(), component);
+        isr.close( );
+        br.close( );
+        
+        for( final Map.Entry<String, Set<PropertyComponentBuilder>> entry : requiredBy.entrySet( ) ) {
+            final String                        propertyName    = entry.getKey( );
+            final Set<PropertyComponentBuilder> children        = entry.getValue( );
+            final GenomePropertyBuilder         propertyBuilder = ( GenomePropertyBuilder ) termsBuilder.get( propertyName );
+            final GenomeProperty                property        = propertyBuilder.create( );
+            if( !terms.containsKey( propertyName ) )
+                terms.put( propertyName, property );
+            for( final PropertyComponentBuilder componentBuilder : children ) {
+                componentBuilder.setRequiredBy( property );
+                final PropertyComponent component = componentBuilder.create( );
+                terms.put( component.getName( ), component );
             }
         }
-
-        for( final Map.Entry<String, Set<PropertyComponentBuilder>> entry : partOf.entrySet() ){
-            final String                        propertyName    = entry.getKey();
-            final Set<PropertyComponentBuilder> childs          = entry.getValue();
-            final GenomePropertyBuilder         propertyBuilder = (GenomePropertyBuilder) termsBuilder.get(propertyName);
-            final GenomeProperty                property        = propertyBuilder.create();
-            if( ! terms.containsKey(propertyName))
-                terms.put(propertyName, property);
+        
+        for( final Map.Entry<String, Set<PropertyComponentBuilder>> entry : partOf.entrySet( ) ) {
+            final String                        propertyName    = entry.getKey( );
+            final Set<PropertyComponentBuilder> childs          = entry.getValue( );
+            final GenomePropertyBuilder         propertyBuilder = ( GenomePropertyBuilder ) termsBuilder.get( propertyName );
+            final GenomeProperty                property        = propertyBuilder.create( );
+            if( !terms.containsKey( propertyName ) )
+                terms.put( propertyName, property );
             for( final PropertyComponentBuilder componentBuilder : childs ) {
-                componentBuilder.setPartOf(property);
-                final PropertyComponent component = componentBuilder.create();
-                terms.put(component.getName(), component);
+                componentBuilder.setPartOf( property );
+                final PropertyComponent component = componentBuilder.create( );
+                terms.put( component.getName( ), component );
             }
         }
-
-        for( final Map.Entry<String, Set<ComponentEvidenceBuilder>> entry : sufficientFor.entrySet() ){
-            final String                        componentName   = entry.getKey();
-            final Set<ComponentEvidenceBuilder> childs          = entry.getValue();
-            final PropertyComponentBuilder      componentBuilder= (PropertyComponentBuilder) termsBuilder.get(componentName);
-            final PropertyComponent             component       = componentBuilder.create();
-            if( ! terms.containsKey(componentName))
-                terms.put(componentName, component);
+        
+        for( final Map.Entry<String, Set<ComponentEvidenceBuilder>> entry : sufficientFor.entrySet( ) ) {
+            final String                        componentName    = entry.getKey( );
+            final Set<ComponentEvidenceBuilder> childs           = entry.getValue( );
+            final PropertyComponentBuilder      componentBuilder = ( PropertyComponentBuilder ) termsBuilder.get( componentName );
+            final PropertyComponent             component        = componentBuilder.create( );
+            if( !terms.containsKey( componentName ) )
+                terms.put( componentName, component );
             for( final ComponentEvidenceBuilder evidenceBuilder : childs ) {
-                evidenceBuilder.setSufficientFor(component);
-                final ComponentEvidence evidence = evidenceBuilder.create();
-                terms.put(evidence.getName(), evidence);
+                evidenceBuilder.setSufficientFor( component );
+                final ComponentEvidence evidence = evidenceBuilder.create( );
+                terms.put( evidence.getName( ), evidence );
             }
         }
-
-
+        
+        
     }
-
-    private static String getValue(final String line) throws Exception {
-        final Pattern pattern = Pattern.compile("\\s*:?\\w+\\s+:?\"?([^\"]*)\"?;?");
-        final Matcher matcher = pattern.matcher(line);
-        final boolean isFound = matcher.find();
+    
+    private static String getValue( final String line ) throws Exception {
+        final Pattern pattern = Pattern.compile( "\\s*:?\\w+\\s+:?\"?([^\"]*)\"?;?" );
+        final Matcher matcher = pattern.matcher( line );
+        final boolean isFound = matcher.find( );
         String        result  = "";
         if( isFound )
-            result = matcher.group(1);
+            result = matcher.group( 1 );
         else
-            throw new IOException("Unfound value from: "+line);
+            throw new IOException( "Unfound value from: " + line );
         return result;
     }
-
-
+    
+    
     /**
      * @param path path location to the obo file to read
      * @throws Exception if an error occur while trying to read the file
      */
-    public GenomePropertiesParser( @NonNull final String path) throws Exception {
-        this(new FileInputStream(path), DEFAULT_NUMBER_PAGE);
+    public GenomePropertiesParser( @NonNull final String path ) throws Exception {
+        this( new FileInputStream( path ), DEFAULT_NUMBER_PAGE );
     }
-
-
+    
+    
     /**
      * @param input stream from the obo file to read
      * @throws Exception if an error occur while trying to read the file
      */
-    public GenomePropertiesParser( final InputStream input) throws Exception {
+    public GenomePropertiesParser( final InputStream input ) throws Exception {
         this( input, DEFAULT_NUMBER_PAGE );
     }
-
-    public Term getTerm(@NonNull final String s) {
+    
+    public Term getTerm( @NonNull final String s ) {
         return terms.get( s );
     }
-
+    
     @Override
-    public Iterator iterator() {
-        return terms.entrySet().iterator();
+    public Iterator iterator( ) {
+        return terms.entrySet( ).iterator( );
     }
-
-    public void forEach(BiConsumer<String,? super Term> action){
-        Objects.requireNonNull(action);
-        for (Map.Entry<String, Term> entry : terms.entrySet()) {
-            action.accept( entry.getKey(), entry.getValue() );
+    
+    public void forEach( BiConsumer<String, ? super Term> action ) {
+        Objects.requireNonNull( action );
+        for( Map.Entry<String, Term> entry : terms.entrySet( ) ) {
+            action.accept( entry.getKey( ), entry.getValue( ) );
         }
     }
-
-    public Set<Term> getTermsWithId( @NonNull final String id ){
-        return terms.values()
-                    .stream()
-                    .filter( i-> i.getId().equals(id) )
-                    .collect(Collectors.toSet());
+    
+    public Set<Term> getTermsWithId( @NonNull final String id ) {
+        return terms.values( )
+                    .stream( )
+                    .filter( i -> i.getId( ).equals( id ) )
+                    .collect( Collectors.toSet( ) );
     }
-
-    public GenomeProperty getTermFromAccession(@NonNull final String accession){
-        final Class                         clazz       = GenomeProperty.class;
-        GenomeProperty                      result      = null;
-        Iterator<Map.Entry<String,Term>>    iter        = terms.entrySet().iterator();
-        boolean     isSearching = true;
-        while( isSearching){
-            if( ! iter.hasNext() )
+    
+    public GenomeProperty getTermFromAccession( @NonNull final String accession ) {
+        final Class                       clazz       = GenomeProperty.class;
+        GenomeProperty                    result      = null;
+        Iterator<Map.Entry<String, Term>> iter        = terms.entrySet( ).iterator( );
+        boolean                           isSearching = true;
+        while( isSearching ) {
+            if( !iter.hasNext( ) )
                 isSearching = false;
             else {
-                final Map.Entry<String,Term> entry =  iter.next();
-                final Term current = entry.getValue();
-                if (clazz.isInstance(current) && ((GenomeProperty)current).getAccession().equals(accession)){
+                final Map.Entry<String, Term> entry   = iter.next( );
+                final Term                    current = entry.getValue( );
+                if( clazz.isInstance( current ) && ( ( GenomeProperty ) current ).getAccession( ).equals( accession ) ) {
                     isSearching = false;
-                    result = (GenomeProperty)current;
+                    result = ( GenomeProperty ) current;
                 }
             }
         }
         return result;
     }
-
+    
     @NonNull
-    public Set<Map.Entry<String, Term>> entrySet(){
-        return terms.entrySet();
+    public Set<Map.Entry<String, Term>> entrySet( ) {
+        return terms.entrySet( );
     }
 }

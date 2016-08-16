@@ -32,6 +32,7 @@
  * knowledge of the CeCILL license and that you accept its terms.
  */
 package fr.cea.ig.model.genome_properties;
+
 import lombok.NonNull;
 
 
@@ -39,40 +40,40 @@ public class ComponentEvidenceImpl implements ComponentEvidence {
     @NonNull
     private final PropertyComponent sufficientFor;
     @NonNull
-    private final String category;
+    private final String            category;
     @NonNull
-    private final String name;
+    private final String            name;
     @NonNull
-    private final String id;
-
-    public ComponentEvidenceImpl(@NonNull PropertyComponent sufficientFor, @NonNull final String category, @NonNull final String name, @NonNull final String id) {
-        this.sufficientFor  = sufficientFor;
-        this.category       = category;
-        this.name           = name;
-        this.id             = id;
+    private final String            id;
+    
+    public ComponentEvidenceImpl( @NonNull PropertyComponent sufficientFor, @NonNull final String category, @NonNull final String name, @NonNull final String id ) {
+        this.sufficientFor = sufficientFor;
+        this.category = category;
+        this.name = name;
+        this.id = id;
     }
-
+    
     @NonNull
     @Override
-    public PropertyComponent getSufficientFor() {
+    public PropertyComponent getSufficientFor( ) {
         return sufficientFor;
     }
-
+    
     @NonNull
     @Override
-    public String getCategory() {
+    public String getCategory( ) {
         return category;
     }
-
+    
     @NonNull
     @Override
-    public String getName() {
+    public String getName( ) {
         return name;
     }
-
+    
     @NonNull
     @Override
-    public String getId() {
+    public String getId( ) {
         return id;
     }
 }

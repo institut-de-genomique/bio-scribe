@@ -32,11 +32,12 @@
  * knowledge of the CeCILL license and that you accept its terms.
  */
 package fr.cea.ig.model.genome_properties;
+
 import lombok.NonNull;
 
 
 public class GenomePropertyImpl implements GenomeProperty {
-    private final int threshold;
+    private final int    threshold;
     @NonNull
     private final String definition;
     @NonNull
@@ -49,56 +50,56 @@ public class GenomePropertyImpl implements GenomeProperty {
     private final String id;
     @NonNull
     private final String title;
-
+    
     public GenomePropertyImpl( final int threshold, @NonNull final String definition, @NonNull final String accession, @NonNull final String category, @NonNull final String name, @NonNull final String id, @NonNull final String title ) {
-        this.threshold  = threshold;
+        this.threshold = threshold;
         this.definition = definition;
-        this.accession  = accession;
-        this.category   = category;
-        this.name       = name;
-        this.id         = id;
-        this.title      = title;
+        this.accession = accession;
+        this.category = category;
+        this.name = name;
+        this.id = id;
+        this.title = title;
     }
-
+    
     @NonNull
     @Override
-    public int getThreshold() {
+    public int getThreshold( ) {
         return threshold;
     }
-
+    
     @NonNull
     @Override
-    public String getDefinition() {
+    public String getDefinition( ) {
         return definition;
     }
-
+    
     @NonNull
     @Override
-    public String getAccession() {
+    public String getAccession( ) {
         return accession;
     }
-
+    
     @NonNull
     @Override
-    public String getCategory() {
+    public String getCategory( ) {
         return category;
     }
-
+    
     @NonNull
     @Override
-    public String getName() {
+    public String getName( ) {
         return name;
     }
-
+    
     @NonNull
     @Override
-    public String getId() {
+    public String getId( ) {
         return id;
     }
-
+    
     @NonNull
     @Override
-    public String getTitle() {
+    public String getTitle( ) {
         return title;
     }
 }

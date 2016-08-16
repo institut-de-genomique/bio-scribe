@@ -32,72 +32,74 @@
  * knowledge of the CeCILL license and that you accept its terms.
  */
 package fr.cea.ig.model.genome_properties;
+
 import lombok.NonNull;
 
 
-public class GenomePropertyBuilder  implements TermBuilder<GenomeProperty>, BuildTitle, BuildCategory{
-    private int threshold;
+public class GenomePropertyBuilder implements TermBuilder<GenomeProperty>, BuildTitle, BuildCategory {
+    private int    threshold;
     private String definition;
     private String accession;
     private String category;
     private String name;
     private String id;
     private String title;
-
+    
     @NonNull
     public GenomePropertyBuilder setThreshold( final int threshold ) {
         this.threshold = threshold;
         return this;
     }
-
+    
     @NonNull
-    public GenomePropertyBuilder setDefinition(@NonNull final String definition ) {
+    public GenomePropertyBuilder setDefinition( @NonNull final String definition ) {
         this.definition = definition;
         return this;
     }
+    
     @NonNull
-    public GenomePropertyBuilder setAccession(@NonNull final String accession ) {
+    public GenomePropertyBuilder setAccession( @NonNull final String accession ) {
         this.accession = accession;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public GenomePropertyBuilder setCategory(@NonNull final String category) {
+    public GenomePropertyBuilder setCategory( @NonNull final String category ) {
         this.category = category;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public GenomePropertyBuilder setName(@NonNull final String name) {
+    public GenomePropertyBuilder setName( @NonNull final String name ) {
         this.name = name;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public GenomePropertyBuilder setId(@NonNull final String id) {
+    public GenomePropertyBuilder setId( @NonNull final String id ) {
         this.id = id;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public GenomePropertyBuilder setTitle(@NonNull final String title) {
+    public GenomePropertyBuilder setTitle( @NonNull final String title ) {
         this.title = title;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public GenomeProperty create() {
-        return new GenomePropertyImpl(threshold, definition, accession, category, name, id, title );
+    public GenomeProperty create( ) {
+        return new GenomePropertyImpl( threshold, definition, accession, category, name, id, title );
     }
-
+    
     @NonNull
     @Override
-    public String getName() {
+    public String getName( ) {
         return name;
     }
 }

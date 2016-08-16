@@ -35,5 +35,5 @@ package fr.cea.ig.model.genome_properties;
 
 
 public interface HasCategory {
-    String getCategory();
+    String getCategory( );
 }

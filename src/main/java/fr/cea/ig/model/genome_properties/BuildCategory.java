@@ -32,8 +32,8 @@
  * knowledge of the CeCILL license and that you accept its terms.
  */
 package fr.cea.ig.model.genome_properties;
-import lombok.NonNull;
 
+import lombok.NonNull;
 
 
 public interface BuildCategory {

@@ -52,77 +52,77 @@ import java.io.InputStream;
 import java.util.Set;
 
 public final class GenomePropertiesParserTest extends TestCase {
-
+    
     @NonNull
-    private InputStream getFile(@NonNull final String fileName) {
-        ClassLoader classLoader = getClass().getClassLoader();
-
-        return classLoader.getResourceAsStream(fileName);
-
+    private InputStream getFile( @NonNull final String fileName ) {
+        ClassLoader classLoader = getClass( ).getClassLoader( );
+        
+        return classLoader.getResourceAsStream( fileName );
+        
     }
-
+    
     private GenomePropertiesParser genomePropertiesParser;
-    private InputStream stream;
-
-
-
+    private InputStream            stream;
+    
+    
     @Before
-    public void setUp(){
-        stream = getFile("GenProp_3.2_release.RDF");
-        assertNotNull( stream ) ;
+    public void setUp( ) {
+        stream = getFile( "GenProp_3.2_release.RDF" );
+        assertNotNull( stream );
         try {
             genomePropertiesParser = new GenomePropertiesParser( stream );
-        } catch ( Exception e) {
-            e.printStackTrace();
+        }
+        catch( Exception e ) {
+            e.printStackTrace( );
         }
         assertNotNull( genomePropertiesParser );
     }
-
+    
     @Test
-    public void testGetTerm() {
-        final Term term = genomePropertiesParser.getTerm("gp:Genome_Property_51171");
-        assertNotNull(term);
-        assertEquals( term.getId(), "51171" );
-        assertTrue( term instanceof GenomePropertyImpl);
-        GenomePropertyImpl genomeProperty = (GenomePropertyImpl)term;
-        assertEquals(genomeProperty.getAccession()  , "GenProp0193");
-        assertEquals(genomeProperty.getCategory()   , "PATHWAY");
-        assertEquals(genomeProperty.getThreshold()  , 6);
-        assertEquals(genomeProperty.getTitle()      , "lysine biosynthesis via alpha-aminoadipate (AAA pathway)");
-        assertEquals(genomeProperty.getDefinition() , "Lysine biosynthesis in fungi has been characterized and begins with the condensation of 2-oxoglutarate and acetyl-CoA to homocitrate and continues through the distinctive intermediate, alpha-aminoadipate. This pathway is distinct in every respect from the diaminopimelate pathway commonly found in bacteria and animals. Recently, an alpha-aminoadipate pathway closely related to the fungal version has been characterized in Thermus thermophilus [1] and appears to be widely distributed among the archaea.");
+    public void testGetTerm( ) {
+        final Term term = genomePropertiesParser.getTerm( "gp:Genome_Property_51171" );
+        assertNotNull( term );
+        assertEquals( term.getId( ), "51171" );
+        assertTrue( term instanceof GenomePropertyImpl );
+        GenomePropertyImpl genomeProperty = ( GenomePropertyImpl ) term;
+        assertEquals( genomeProperty.getAccession( ), "GenProp0193" );
+        assertEquals( genomeProperty.getCategory( ), "PATHWAY" );
+        assertEquals( genomeProperty.getThreshold( ), 6 );
+        assertEquals( genomeProperty.getTitle( ), "lysine biosynthesis via alpha-aminoadipate (AAA pathway)" );
+        assertEquals( genomeProperty.getDefinition( ), "Lysine biosynthesis in fungi has been characterized and begins with the condensation of 2-oxoglutarate and acetyl-CoA to homocitrate and continues through the distinctive intermediate, alpha-aminoadipate. This pathway is distinct in every respect from the diaminopimelate pathway commonly found in bacteria and animals. Recently, an alpha-aminoadipate pathway closely related to the fungal version has been characterized in Thermus thermophilus [1] and appears to be widely distributed among the archaea." );
     }
-
-
-
+    
+    
     @Test
-    public void testTermHierarchy() {
-        final Term term42736    = genomePropertiesParser.getTerm("gp:Property_Component_42736");
-        assertNotNull(term42736);
-        assertTrue( term42736 instanceof PropertyComponent);
-        final PropertyComponent component42736  = (PropertyComponent) term42736;
-        final Term              parent          = component42736.getRequiredBy();
-        assertNotNull(parent);
-        GenomeProperty property51171 = (GenomeProperty) parent;
-        assertEquals(property51171.getName(), "gp:Genome_Property_51171");
-        assertNotNull( genomePropertiesParser.getTerm(property51171.getName()) );
-
+    public void testTermHierarchy( ) {
+        final Term term42736 = genomePropertiesParser.getTerm( "gp:Property_Component_42736" );
+        assertNotNull( term42736 );
+        assertTrue( term42736 instanceof PropertyComponent );
+        final PropertyComponent component42736 = ( PropertyComponent ) term42736;
+        final Term              parent         = component42736.getRequiredBy( );
+        assertNotNull( parent );
+        GenomeProperty property51171 = ( GenomeProperty ) parent;
+        assertEquals( property51171.getName( ), "gp:Genome_Property_51171" );
+        assertNotNull( genomePropertiesParser.getTerm( property51171.getName( ) ) );
+        
     }
-
+    
     @Test
-    public void testGetTermFromId(){
-        Set<Term> result = genomePropertiesParser.getTermsWithId( "GenProp0633");
-        assertEquals( 1, result.size() );
-        final Term term72587 = result.iterator().next();
-        assertNotNull(term72587);
-        assertTrue( term72587 instanceof ComponentEvidence);
-        ComponentEvidence evidence = (ComponentEvidence) term72587;
-        assertEquals(evidence.getCategory(),"GENPROP");
+    public void testGetTermFromId( ) {
+        Set<Term> result = genomePropertiesParser.getTermsWithId( "GenProp0633" );
+        assertEquals( 1, result.size( ) );
+        final Term term72587 = result.iterator( ).next( );
+        assertNotNull( term72587 );
+        assertTrue( term72587 instanceof ComponentEvidence );
+        ComponentEvidence evidence = ( ComponentEvidence ) term72587;
+        assertEquals( evidence.getCategory( ), "GENPROP" );
     }
+    
     @Test
-    public void testGetTermFromAccession(){
-        final GenomeProperty term58359 = genomePropertiesParser.getTermFromAccession("GenProp0633");
-        assertNotNull(term58359);
-        assertEquals(term58359.getId(),"58359");
+    public void testGetTermFromAccession( ) {
+        final GenomeProperty term58359 = genomePropertiesParser.getTermFromAccession( "GenProp0633" );
+        assertNotNull( term58359 );
+        assertEquals( term58359.getId( ), "58359" );
     }
 
 //    @Test

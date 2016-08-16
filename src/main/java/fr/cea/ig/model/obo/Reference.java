@@ -48,36 +48,36 @@ import lombok.NonNull;
 public class Reference {
     private final String id;
     private final String description;
-    private final int hash;
-
-    public Reference(@NonNull final String id, @NonNull final String description) {
+    private final int    hash;
+    
+    public Reference( @NonNull final String id, @NonNull final String description ) {
         this.id = id;
         this.description = description;
-        this.hash = 31 * id.hashCode() + 31 * description.hashCode();
+        this.hash = 31 * id.hashCode( ) + 31 * description.hashCode( );
     }
-
-    public String getId() {
+    
+    public String getId( ) {
         return id;
     }
-
-    public String getDescription() {
+    
+    public String getDescription( ) {
         return description;
     }
-
+    
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Reference reference = (Reference) o;
-
-        if (!id.equals(reference.id)) return false;
-        return description.equals(reference.description);
-
+    public boolean equals( Object o ) {
+        if( this == o ) return true;
+        if( o == null || getClass( ) != o.getClass( ) ) return false;
+        
+        Reference reference = ( Reference ) o;
+        
+        if( !id.equals( reference.id ) ) return false;
+        return description.equals( reference.description );
+        
     }
-
+    
     @Override
-    public int hashCode() {
+    public int hashCode( ) {
         return hash;
     }
 }

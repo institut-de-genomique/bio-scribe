@@ -36,5 +36,5 @@ package fr.cea.ig.model.genome_properties;
 public enum RelationType {
     REQUIRED_BY,
     PART_OF,
-    SUFFICIENT_FOR;
+    SUFFICIENT_FOR
 }

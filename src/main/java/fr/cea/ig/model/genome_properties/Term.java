@@ -35,6 +35,7 @@ package fr.cea.ig.model.genome_properties;
 
 
 public interface Term {
-    String getName();
-    String getId();
+    String getName( );
+    
+    String getId( );
 }

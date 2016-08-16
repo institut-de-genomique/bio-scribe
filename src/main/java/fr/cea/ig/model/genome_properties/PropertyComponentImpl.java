@@ -46,13 +46,13 @@ public class PropertyComponentImpl implements PropertyComponent {
     String title;
     GenomeProperty partOf;
     GenomeProperty requiredBy;
-
+    
     public PropertyComponentImpl( @NonNull final String name, @NonNull final String id, @NonNull final String title,
-                                  final GenomeProperty requiredBy, final GenomeProperty partOf) {
-        this.name       = name;
-        this.id         = id;
-        this.title      = title;
-        this.partOf     = partOf;
+                                  final GenomeProperty requiredBy, final GenomeProperty partOf ) {
+        this.name = name;
+        this.id = id;
+        this.title = title;
+        this.partOf = partOf;
         this.requiredBy = requiredBy;
     }
 }

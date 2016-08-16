@@ -17,15 +17,15 @@ import java.util.Set;
  * @enduml
  */
 public class ULS extends TermRelations {
-
+    
     /**
-     * @param id Id of this aggregated relations
-     * @param name  name of this aggregated relations
+     * @param id         Id of this aggregated relations
+     * @param name       name of this aggregated relations
      * @param definition description  aggregated relations
-     * @param xref cross references with others resources
+     * @param xref       cross references with others resources
      * @param relations  List of Relation
      */
-    public ULS( final String id, final String name, final String definition, final Map<String, Set<Reference>> xref, Relations relations) {
-        super(id, name, definition, xref, relations );
+    public ULS( final String id, final String name, final String definition, final Map<String, Set<Reference>> xref, Relations relations ) {
+        super( id, name, definition, xref, relations );
     }
 }

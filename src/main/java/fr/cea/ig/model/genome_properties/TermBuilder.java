@@ -39,13 +39,13 @@ import lombok.NonNull;
 public interface TermBuilder<T extends Term> {
     @NonNull
     TermBuilder setName( final String name );
-
+    
     @NonNull
     TermBuilder setId( final String id );
-
+    
     @NonNull
-    T create();
-
+    T create( );
+    
     @NonNull
-    String getName();
+    String getName( );
 }

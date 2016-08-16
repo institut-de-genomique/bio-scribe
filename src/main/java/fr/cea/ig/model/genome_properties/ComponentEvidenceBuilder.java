@@ -32,57 +32,58 @@
  * knowledge of the CeCILL license and that you accept its terms.
  */
 package fr.cea.ig.model.genome_properties;
+
 import lombok.NonNull;
 
-public class ComponentEvidenceBuilder implements TermBuilder<ComponentEvidence>,BuildCategory {
+public class ComponentEvidenceBuilder implements TermBuilder<ComponentEvidence>, BuildCategory {
     private PropertyComponent sufficientFor;
-    private String                  category;
-    private String                  name;
-    private String                  id;
-    private RelationType            relationType = RelationType.SUFFICIENT_FOR;
-
+    private String            category;
+    private String            name;
+    private String            id;
+    private RelationType relationType = RelationType.SUFFICIENT_FOR;
+    
     @NonNull
-    public ComponentEvidenceBuilder setSufficientFor(@NonNull final PropertyComponent sufficientFor) {
+    public ComponentEvidenceBuilder setSufficientFor( @NonNull final PropertyComponent sufficientFor ) {
         this.sufficientFor = sufficientFor;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public ComponentEvidenceBuilder setCategory(@NonNull final String category) {
+    public ComponentEvidenceBuilder setCategory( @NonNull final String category ) {
         this.category = category;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public ComponentEvidenceBuilder setName(@NonNull final String name) {
+    public ComponentEvidenceBuilder setName( @NonNull final String name ) {
         this.name = name;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public ComponentEvidenceBuilder setId(@NonNull final String id) {
+    public ComponentEvidenceBuilder setId( @NonNull final String id ) {
         this.id = id;
         return this;
     }
-
+    
     @NonNull
     @Override
-    public ComponentEvidence create() {
-        return new ComponentEvidenceImpl(sufficientFor, category, name, id);
+    public ComponentEvidence create( ) {
+        return new ComponentEvidenceImpl( sufficientFor, category, name, id );
     }
-
-
+    
+    
     @NonNull
-    public RelationType getRelationType(){
+    public RelationType getRelationType( ) {
         return relationType;
     }
-
+    
     @NonNull
     @Override
-    public String getName() {
+    public String getName( ) {
         return name;
     }
 }

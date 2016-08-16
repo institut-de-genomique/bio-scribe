@@ -55,54 +55,54 @@ import java.util.List;
  * @enduml
  */
 public class UnipathwayUnit {
-    private static final List<Class<? extends Term>> units = Arrays.asList(UPA.class, ULS.class, UER.class, UCR.class, UPC.class);
-
+    private static final List<Class<? extends Term>> units = Arrays.asList( UPA.class, ULS.class, UER.class, UCR.class, UPC.class );
+    
     private final Term unit;
-
-
-    public UnipathwayUnit( @NonNull final Term term){
+    
+    
+    public UnipathwayUnit( @NonNull final Term term ) {
         this.unit = term;
     }
-
-
-    public  boolean isAfter( @NonNull final Class<? extends Term> termType) {
-        return !(isBefore(termType));
+    
+    
+    public boolean isAfter( @NonNull final Class<? extends Term> termType ) {
+        return !( isBefore( termType ) );
     }
-
-
-    public  boolean isBefore( @NonNull final Class<? extends Term> termType) {
-        boolean  isRunning      = true;
-        boolean  result         = false;
-        Iterator iterator       = units.iterator();
+    
+    
+    public boolean isBefore( @NonNull final Class<? extends Term> termType ) {
+        boolean               isRunning = true;
+        boolean               result    = false;
+        Iterator              iterator  = units.iterator( );
         Class<? extends Term> currentTermType;
-
+        
         // unit is equal to termType
         if( is( termType ) )
             result = false;
-        else{
-            while ( isRunning ){
-                if( iterator.hasNext() ) {
-                    currentTermType = (Class<? extends Term>) iterator.next();
-                    if (currentTermType.equals(termType)) {
-                        result      = false;
-                        isRunning   = false;
+        else {
+            while( isRunning ) {
+                if( iterator.hasNext( ) ) {
+                    currentTermType = ( Class<? extends Term> ) iterator.next( );
+                    if( currentTermType.equals( termType ) ) {
+                        result = false;
+                        isRunning = false;
                     }
-                    else if(currentTermType.equals(unit.getClass())) {
-                        result      = true;
-                        isRunning   = false;
+                    else if( currentTermType.equals( unit.getClass( ) ) ) {
+                        result = true;
+                        isRunning = false;
                     }
                 }
-                else{ //strange
-                        result      = true;
-                        isRunning   = false;
+                else { //strange
+                    result = true;
+                    isRunning = false;
                 }
             }
         }
         return result;
     }
-
-    public boolean is( @NonNull final Class<? extends Term> termType) {
-        boolean  result         = false;
+    
+    public boolean is( @NonNull final Class<? extends Term> termType ) {
+        boolean result = false;
         if( termType.equals( unit.getClass( ) ) )
             result = true;
         return result;
