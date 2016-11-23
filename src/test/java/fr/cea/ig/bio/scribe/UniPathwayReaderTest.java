@@ -40,7 +40,7 @@ public class UniPathwayReaderTest extends TestCase {
     }
     
     @Test
-    public void testULSVariant( ) {
+    public void testULSVariant1( ) {
         UPA              term     = ( UPA ) uniPathwayOboReader.getTerm( "UPA00033" );
         List<List<Term>> children = term.getChildren( );
         
@@ -61,6 +61,29 @@ public class UniPathwayReaderTest extends TestCase {
         assertEquals( 2, variants.get( 1 ).size( ) );
         assertEquals( uls12, variants.get( 1 ).get( 0 ) );
         assertEquals( uls14, variants.get( 1 ).get( 1 ) );
+    }
+
+    @Test
+    public void testULSVariant2( ) {
+        UPA term = ( UPA ) uniPathwayOboReader.getTerm( "UPA00034" );
+        List< List< Term > > children = term.getChildren( );
+
+        assertEquals( 4, children.size( ) );
+
+        assertEquals( 1, children.get( 0 ).size( ) );
+        assertEquals( "ULS00006", children.get( 0 ).get( 0 ).getId( ) );
+
+        assertEquals( 4, children.get( 1 ).size( ) );
+        assertEquals( "ULS00007", children.get( 1 ).get( 0 ).getId( ) );
+        assertEquals( "ULS00008", children.get( 1 ).get( 1 ).getId( ) );
+        assertEquals( "ULS00010", children.get( 1 ).get( 2 ).getId( ) );
+        assertEquals( "ULS00227", children.get( 1 ).get( 3 ).getId( ) );
+
+        assertEquals( 1, children.get( 2 ).size( ) );
+        assertEquals( "ULS00009", children.get( 2 ).get( 0 ).getId( ) );
+
+        assertEquals( 1, children.get( 3 ).size( ) );
+        assertEquals( "ULS00011", children.get( 3 ).get( 0 ).getId( ) );
     }
     
     

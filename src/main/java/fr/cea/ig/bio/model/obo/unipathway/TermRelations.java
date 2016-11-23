@@ -54,25 +54,25 @@ public class TermRelations extends Term {
     /**
      * @param id         Id of this aggregated relations
      * @param name       name of this aggregated relations
-     * @param definition description  aggregated relations
+     * @param definition description aggregated relations
      * @param relations  List of Relation
      * @param xref       cross references with others resources
      */
-    public TermRelations( final String id, final String name, final String definition, final Map<String, Set<Reference>> xref, Relations relations ) {
+    public TermRelations( @NonNull final String id, @NonNull final String name, @NonNull final String definition, @NonNull final Map<String, Set<Reference>> xref, @NonNull final Relations relations ) {
         super( id, name, definition, xref );
-        this.relations = relations;
-        this.children = new ArrayList<>( );
+        this.relations  = relations;
+        this.children   = new ArrayList<>( );
     }
     
     /**
      * @param id         Id of this aggregated relations
      * @param name       name of this aggregated relations
-     * @param definition description  aggregated relations
+     * @param definition description aggregated relations
      */
-    public TermRelations( final String id, final String name, final String definition ) {
+    public TermRelations( @NonNull final String id, @NonNull final String name, @NonNull final String definition ) {
         super( id, name, definition );
-        this.relations = new Relations( );
-        this.children = new ArrayList<>( );
+        this.relations  = new Relations( );
+        this.children   = new ArrayList<>( );
     }
     
     
@@ -81,7 +81,7 @@ public class TermRelations extends Term {
     }
     
     
-    public Set<Relation> getRelation( final String type ) {
+    public Set<Relation> getRelation( @NonNull final String type ) {
         final String tokenInput  = "has_input_compound";
         final String tokenOutput = "has_output_compound";
         final String tokenPartOf = "part_of";
@@ -180,7 +180,8 @@ public class TermRelations extends Term {
     
     
     public boolean isVariantOf( @NonNull final TermRelations term ) {
-        return hasAtLeastOneCommonOutputCompound( term ) && hasAtLeastOneCommonInputCompound( term );
+//        return hasAtLeastOneCommonOutputCompound( term ) && hasAtLeastOneCommonInputCompound( term );
+        return hasAtLeastOneCommonInputCompound( term );
     }
     
     
