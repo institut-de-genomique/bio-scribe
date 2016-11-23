@@ -47,10 +47,10 @@ public abstract class Term {
      * @param xref       Cross references id
      */
     public Term( @NonNull final String id, @NonNull final String name, @NonNull final String definition, @NonNull final Map<String, Set<Reference>> xref ) {
-        this.id = id;
-        this.name = name;
+        this.id         = id;
+        this.name       = name;
         this.definition = definition;
-        this.xref = xref;
+        this.xref       = xref;
     }
     
     public String getId( ) {
@@ -79,10 +79,10 @@ public abstract class Term {
     
     @Override
     public String toString( ) {
-        return "[Term]" + "\n" +
-                "id: UPa:" + id + "\n" +
-                "name: " + name + "\n" +
-                "def: " + definition;
+        return "[Term]"                     + "\n" +
+                "id: UPa:"  + id            + "\n" +
+                "name: "    + name          + "\n" +
+                "def: "     + definition;
     }
     
     public String getNameSpace( ) { //(final Class<? extends Term> cls

@@ -291,16 +291,16 @@ public class UniPathwayOboReader implements Iterable {
                 if( id != null ) {
                     if( definition == null ) definition = "";
                     saveTerm( id, name, namespace, definition, has_input_compound, has_output_compound, part_of, isA, xref, superPathway );
-                    id = null;
-                    name = null;
-                    namespace = null;
-                    definition = null;
-                    has_input_compound = new HashSet<>( );
+                    id                  = null;
+                    name                = null;
+                    namespace           = null;
+                    definition          = null;
+                    has_input_compound  = new HashSet<>( );
                     has_output_compound = new HashSet<>( );
-                    part_of = new HashSet<>( );
-                    isA = new HashSet<>( );
-                    xref = new HashMap<>( );
-                    superPathway = null;
+                    part_of             = new HashSet<>( );
+                    isA                 = new HashSet<>( );
+                    xref                = new HashMap<>( );
+                    superPathway        = null;
                 }
             }
             else if( line.startsWith( "id:" ) )
