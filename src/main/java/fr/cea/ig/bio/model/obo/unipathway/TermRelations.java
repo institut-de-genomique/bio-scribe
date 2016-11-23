@@ -58,7 +58,7 @@ public class TermRelations extends Term {
      * @param relations  List of Relation
      * @param xref       cross references with others resources
      */
-    public TermRelations( @NonNull final String id, @NonNull final String name, @NonNull final String definition, @NonNull final Map<String, Set<Reference>> xref, @NonNull final Relations relations ) {
+    public TermRelations( final String id, final String name, final String definition, final Map<String, Set<Reference>> xref, @NonNull final Relations relations ) {
         super( id, name, definition, xref );
         this.relations  = relations;
         this.children   = new ArrayList<>( );
@@ -69,7 +69,7 @@ public class TermRelations extends Term {
      * @param name       name of this aggregated relations
      * @param definition description aggregated relations
      */
-    public TermRelations( @NonNull final String id, @NonNull final String name, @NonNull final String definition ) {
+    public TermRelations( final String id, final String name, final String definition ) {
         super( id, name, definition );
         this.relations  = new Relations( );
         this.children   = new ArrayList<>( );
