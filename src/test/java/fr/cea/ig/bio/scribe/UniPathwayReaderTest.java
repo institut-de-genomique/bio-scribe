@@ -1,11 +1,11 @@
 package fr.cea.ig.bio.scribe;
 
-import fr.cea.ig.bio.model.obo.Cardinality;
-import fr.cea.ig.bio.model.obo.Relation;
+import fr.cea.ig.bio.model.obo.unipathway.Cardinality;
+import fr.cea.ig.bio.model.obo.unipathway.Relation;
 import fr.cea.ig.bio.model.obo.Term;
-import fr.cea.ig.bio.model.obo.ULS;
-import fr.cea.ig.bio.model.obo.UPA;
-import fr.cea.ig.bio.model.obo.Variant;
+import fr.cea.ig.bio.model.obo.unipathway.ULS;
+import fr.cea.ig.bio.model.obo.unipathway.UPA;
+import fr.cea.ig.bio.model.obo.unipathway.Variant;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;

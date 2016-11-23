@@ -1,5 +1,6 @@
-package fr.cea.ig.bio.model.obo;
+package fr.cea.ig.bio.model.obo.unipathway;
 
+import fr.cea.ig.bio.model.obo.Term;
 import lombok.NonNull;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class Variant implements Iterable<Term> {
+public class Variant implements Iterable<Term > {
     
     private static final AtomicInteger counter = new AtomicInteger( );
     

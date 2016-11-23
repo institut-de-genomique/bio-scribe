@@ -1,5 +1,6 @@
 package fr.cea.ig.bio.model.obo;
 
+import fr.cea.ig.bio.model.obo.unipathway.Reference;
 import lombok.NonNull;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public abstract class Term {
     protected final String                      id;
     protected final String                      name;
     protected final String                      definition;
-    protected final Map<String, Set<Reference>> xref;
+    protected final Map<String, Set<Reference >> xref;
     
     /**
      * @param id         Term id

@@ -1,4 +1,4 @@
-package fr.cea.ig.bio.model.obo;
+package fr.cea.ig.bio.model.obo.unipathway;
 
 /*
  *

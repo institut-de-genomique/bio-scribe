@@ -1,4 +1,4 @@
-package fr.cea.ig.bio.model.obo;
+package fr.cea.ig.bio.model.obo.unipathway;
 /*
  * Copyright LABGeM 25/03/15
  *
@@ -34,6 +34,7 @@ package fr.cea.ig.bio.model.obo;
  */
 
 
+import fr.cea.ig.bio.model.obo.Term;
 import lombok.NonNull;
 
 import java.util.Arrays;
@@ -55,7 +56,7 @@ import java.util.List;
  * @enduml
  */
 public class UnipathwayUnit {
-    private static final List<Class<? extends Term>> units = Arrays.asList( UPA.class, ULS.class, UER.class, UCR.class, UPC.class );
+    private static final List<Class<? extends Term >> units = Arrays.asList( UPA.class, ULS.class, UER.class, UCR.class, UPC.class );
     
     private final Term unit;
     

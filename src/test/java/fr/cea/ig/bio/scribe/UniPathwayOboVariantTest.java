@@ -2,8 +2,8 @@ package fr.cea.ig.bio.scribe;
 
 
 import fr.cea.ig.bio.model.obo.Term;
-import fr.cea.ig.bio.model.obo.TermRelations;
-import fr.cea.ig.bio.model.obo.Variant;
+import fr.cea.ig.bio.model.obo.unipathway.TermRelations;
+import fr.cea.ig.bio.model.obo.unipathway.Variant;
 import junit.framework.TestCase;
 import org.junit.Test;
 

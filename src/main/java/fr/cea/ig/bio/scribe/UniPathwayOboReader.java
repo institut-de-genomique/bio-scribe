@@ -1,17 +1,17 @@
 package fr.cea.ig.bio.scribe;
 
 
-import fr.cea.ig.bio.model.obo.Cardinality;
-import fr.cea.ig.bio.model.obo.Reference;
-import fr.cea.ig.bio.model.obo.Relation;
-import fr.cea.ig.bio.model.obo.Relations;
+import fr.cea.ig.bio.model.obo.unipathway.Cardinality;
+import fr.cea.ig.bio.model.obo.unipathway.Reference;
+import fr.cea.ig.bio.model.obo.unipathway.Relation;
+import fr.cea.ig.bio.model.obo.unipathway.Relations;
 import fr.cea.ig.bio.model.obo.Term;
-import fr.cea.ig.bio.model.obo.TermRelations;
-import fr.cea.ig.bio.model.obo.UCR;
-import fr.cea.ig.bio.model.obo.UER;
-import fr.cea.ig.bio.model.obo.ULS;
-import fr.cea.ig.bio.model.obo.UPA;
-import fr.cea.ig.bio.model.obo.UPC;
+import fr.cea.ig.bio.model.obo.unipathway.TermRelations;
+import fr.cea.ig.bio.model.obo.unipathway.UCR;
+import fr.cea.ig.bio.model.obo.unipathway.UER;
+import fr.cea.ig.bio.model.obo.unipathway.ULS;
+import fr.cea.ig.bio.model.obo.unipathway.UPA;
+import fr.cea.ig.bio.model.obo.unipathway.UPC;
 import lombok.NonNull;
 
 import java.io.BufferedReader;

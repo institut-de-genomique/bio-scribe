@@ -1,4 +1,6 @@
-package fr.cea.ig.bio.model.obo;
+package fr.cea.ig.bio.model.obo.unipathway;
+
+import fr.cea.ig.bio.model.obo.Term;
 
 import java.util.Map;
 import java.util.Set;
