@@ -21,12 +21,12 @@ public class TestParser extends TestCase {
     private static URL file = Thread.currentThread( ).getContextClassLoader( )
                                     .getResource( "unipath.obo" );
     
-    private OboReader oboReader;
+    private UniPathwayOboReader uniPathwayOboReader;
     
     @Before
     public void setUp( ) {
         try {
-            oboReader = new OboReader( file.getPath( ) );
+            uniPathwayOboReader = new UniPathwayOboReader( file.getPath( ) );
         }
         catch( Exception e ) {
             e.printStackTrace( );
@@ -35,22 +35,22 @@ public class TestParser extends TestCase {
     
     @Test
     public void testGetTerm( ) {
-        Term term = oboReader.getTerm( "UPA00033" );
+        Term term = uniPathwayOboReader.getTerm( "UPA00033" );
         assertEquals( "UPA00033", term.getId( ) );
     }
     
     @Test
     public void testULSVariant( ) {
-        UPA              term     = ( UPA ) oboReader.getTerm( "UPA00033" );
+        UPA              term     = ( UPA ) uniPathwayOboReader.getTerm( "UPA00033" );
         List<List<Term>> children = term.getChildren( );
         
         assertEquals( 2, children.size( ) );
         assertEquals( "ULS00013", children.get( 1 ).get( 0 ).getId( ) );
         assertEquals( "ULS00014", children.get( 1 ).get( 1 ).getId( ) );
         
-        ULS uls12 = ( ULS ) oboReader.getTerm( "ULS00012" );
-        ULS uls13 = ( ULS ) oboReader.getTerm( "ULS00013" );
-        ULS uls14 = ( ULS ) oboReader.getTerm( "ULS00014" );
+        ULS uls12 = ( ULS ) uniPathwayOboReader.getTerm( "ULS00012" );
+        ULS uls13 = ( ULS ) uniPathwayOboReader.getTerm( "ULS00013" );
+        ULS uls14 = ( ULS ) uniPathwayOboReader.getTerm( "ULS00014" );
         
         List<Variant> variants = new ArrayList<>( );
         Variant.getVariant( term.getChildren( ), variants );
@@ -66,7 +66,7 @@ public class TestParser extends TestCase {
     
     @Test
     public void testRelation( ) {
-        UPA                term     = ( UPA ) oboReader.getTerm( "UPA00033" );
+        UPA                term     = ( UPA ) uniPathwayOboReader.getTerm( "UPA00033" );
         Relation           relation = new Relation( "is_a", "UPA00404", "L-lysine biosynthesis" );
         Iterator<Relation> iter     = term.getIsA( ).iterator( );
         assertTrue( iter.hasNext( ) );
@@ -75,7 +75,7 @@ public class TestParser extends TestCase {
     
     @Test
     public void testCardinality( ) {
-        ULS           term      = ( ULS ) oboReader.getTerm( "ULS00012" );
+        ULS           term      = ( ULS ) uniPathwayOboReader.getTerm( "ULS00012" );
         Relation      relation1 = new Relation( "has_input_compound", "UPC00026", new Cardinality( "1" ), "UPC00026", "2-oxoglutarate" );
         Relation      relation2 = new Relation( "has_output_compound", "UPC00956", new Cardinality( "1" ), "UPC00956", "L-alpha-aminoadipate" );
         Relation      relation3 = new Relation( "part_of", "UPA00033", new Cardinality( "1" ) );
