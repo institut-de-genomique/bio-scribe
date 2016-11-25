@@ -61,26 +61,26 @@ public class Variant implements Iterable<Term > {
     
     
     public Variant( ) {
-        id = counter.incrementAndGet( );
-        children = new ArrayList<>( );
+        id          = counter.incrementAndGet( );
+        children    = new ArrayList<>( );
     }
     
     
     public Variant( @NonNull final Term term ) {
-        id = counter.incrementAndGet( );
-        children = new ArrayList<>( Arrays.asList( term ) );
+        id          = counter.incrementAndGet( );
+        children    = new ArrayList<>( Arrays.asList( term ) );
     }
     
     public Variant( @NonNull final List<Term> termList ) {
-        id = counter.incrementAndGet( );
-        children = termList;
+        id          = counter.incrementAndGet( );
+        children    = termList;
     }
     
     
     public Variant( @NonNull final List<Term> termList, @NonNull Set<String> variantId ) {
-        id = counter.incrementAndGet( );
-        children = termList;
-        termVariants = variantId;
+        id              = counter.incrementAndGet( );
+        children        = termList;
+        termVariants    = variantId;
     }
     
     
@@ -99,8 +99,8 @@ public class Variant implements Iterable<Term > {
                     currentTerm = iter.next( );
                     
                     if( term instanceof TermRelations && currentTerm instanceof TermRelations && ( ( TermRelations ) term ).isVariantOf( ( TermRelations ) currentTerm ) ) {
-                        result = true;
-                        isRunning = false;
+                        result      = true;
+                        isRunning   = false;
                         termVariants.add( term.getId( ) );
                     }
                     

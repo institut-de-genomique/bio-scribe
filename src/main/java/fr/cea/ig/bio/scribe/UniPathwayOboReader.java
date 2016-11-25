@@ -129,7 +129,8 @@ public class UniPathwayOboReader implements Iterable {
     
     
     private void saveTerm( @NonNull final String id, @NonNull final String name, @NonNull final String namespace, @NonNull final String definition, final Set<Relation> has_input_compound, final Set<Relation> has_output_compound, final Set<Relation> part_of, final Set<Relation> isA, final Map<String, Set<Reference>> xref, final Relation superPathway ) throws ParseException {
-        Term    term               = termFactory( id, name, namespace, definition, has_input_compound, has_output_compound, part_of, isA, xref, superPathway );
+        final Term term            = termFactory( id, name, namespace, definition, has_input_compound,
+                                                  has_output_compound, part_of, isA, xref, superPathway );
         boolean isTermWithRelation = true;
         if( term instanceof UPC )
             isTermWithRelation = false;
@@ -152,7 +153,7 @@ public class UniPathwayOboReader implements Iterable {
                 }
             }
             
-            TermRelations termRelation = ( TermRelations ) terms.get( id );
+            final TermRelations termRelation = ( TermRelations ) terms.get( id );
             if( termRelation != null ) {
                 List<List<Term>> children = termRelation.getChildren( );
                 ( ( TermRelations ) term ).addAll( children );
@@ -208,11 +209,11 @@ public class UniPathwayOboReader implements Iterable {
      * @return
      */
     private static Relation parseRelation( @NonNull final String type, @NonNull final String line ) {
-        Cardinality cardinality  = null;
-        String[]    splittedLine = line.split( "!" );
-        String      idLeft       = stripId( splittedLine[ 0 ].trim( ) );
-        String      name         = splittedLine[ 1 ].trim( );
-        String      idRight      = "";
+        final Cardinality cardinality  = null;
+        final String[]    splittedLine = line.split( "!" );
+        final String      idLeft       = stripId( splittedLine[ 0 ].trim( ) );
+        final String      name         = splittedLine[ 1 ].trim( );
+        final String      idRight      = "";
         
         return new Relation( type, idLeft, cardinality, idRight, name );
     }

@@ -178,7 +178,7 @@ public class TermRelations extends Term {
         
     }
     
-    
+    @Deprecated
     public boolean isVariantOf( @NonNull final TermRelations term ) {
 //        return hasAtLeastOneCommonOutputCompound( term ) && hasAtLeastOneCommonInputCompound( term );
         return hasAtLeastOneCommonInputCompound( term );

@@ -16,11 +16,11 @@ public class Relation {
      * @param name        Relation name
      */
     public Relation( final String type, final String idLeft, final Cardinality cardinality, final String idRight, final String name ) {
-        this.type = type;
-        this.idLeft = idLeft;
-        this.cardinality = cardinality;
-        this.idRight = idRight;
-        this.name = name;
+        this.type           = type;
+        this.idLeft         = idLeft;
+        this.cardinality    = cardinality;
+        this.idRight        = idRight;
+        this.name           = name;
     }
     
     /**
