@@ -33,26 +33,29 @@ public class Variant implements Iterable<Term > {
     public static void getVariant( @NonNull final List<List<Term>> terms, @NonNull List<Variant> variantsList ) {
         getVariant( terms, variantsList, 0, 0 );
     }
-    
+
     private static void getVariant( @NonNull final List<List<Term>> terms, @NonNull List<Variant> variantsList, final int line, final int column ) {
         Variant variant = null;
         if( line < terms.size( ) && column < terms.get( line ).size( ) ) {
             if( variantsList.size( ) > 0 ) {
-                ArrayList<Term> r = new ArrayList<>( variantsList.get( variantsList.size( ) - 1 )
-                                                                 .getTerms( ) );
+                final Variant           curr_variant    = variantsList.get( variantsList.size( ) - 1 );
+                final ArrayList<Term>   r               = new ArrayList<>( curr_variant.getTerms( ) );
+                final Term              next            = terms.get( line ).get( column );
+                final Term              previous        = r.get( r.size() - 1 );
                 variant = new Variant( r );
-                variantsList.get( variantsList.size( ) - 1 ).add( terms.get( line )
-                                                                       .get( column ) );
+                if( next instanceof TermRelations && previous instanceof TermRelations) {
+                    if( ((TermRelations) next).isAfter( (TermRelations) previous ) )
+                        curr_variant.add( next );
+                }
             }
             else {
+                final Term next = terms.get( line ).get( column );
                 variant = new Variant( );
-                variantsList.add( new Variant( terms.get( line )
-                                                    .get( column ) ) );
+                variantsList.add( new Variant( next ) );
             }
             if( line + 1 < terms.size( ) )
                 getVariant( terms, variantsList, line + 1, 0 );
-            if( line < terms.size( ) && column + 1 < terms.get( line )
-                                                          .size( ) ) {
+            if( line < terms.size( ) && column + 1 < terms.get( line ).size( ) && variant.size() > 0 ) {
                 variantsList.add( variant );
                 getVariant( terms, variantsList, line, column + 1 );
             }
@@ -83,7 +86,7 @@ public class Variant implements Iterable<Term > {
         termVariants    = variantId;
     }
     
-    
+    @Deprecated
     public boolean hasVariantOf( @NonNull final Term term ) {
         boolean        result      = termVariants.contains( term.getId( ) );
         boolean        isRunning   = true;
@@ -238,7 +241,8 @@ public class Variant implements Iterable<Term > {
         return str.toString( );
     }
     
-    
+
+    @Deprecated
     public int countUntilVariantOf( final Term term ) {
         int            result      = -1;
         int            index       = 0;

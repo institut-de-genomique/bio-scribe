@@ -84,6 +84,10 @@ public class UniPathwayReaderTest extends TestCase {
 
         assertEquals( 1, children.get( 3 ).size( ) );
         assertEquals( "ULS00011", children.get( 3 ).get( 0 ).getId( ) );
+
+        List<Variant> variants = new ArrayList<>( );
+        Variant.getVariant( term.getChildren( ), variants );
+        assertEquals( 4, variants.size( ) );
     }
     
     

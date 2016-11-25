@@ -177,15 +177,15 @@ public class TermRelations extends Term {
         return result;
         
     }
-    
+
+    // This function do not works as one term could be a variant of a group of terms. Thus this function return inconsistent result.
     @Deprecated
     public boolean isVariantOf( @NonNull final TermRelations term ) {
-//        return hasAtLeastOneCommonOutputCompound( term ) && hasAtLeastOneCommonInputCompound( term );
-        return hasAtLeastOneCommonInputCompound( term );
+        return hasAtLeastOneCommonOutputCompound( term ) && hasAtLeastOneCommonInputCompound( term );
     }
     
     
-    public boolean isAfter( @NonNull final TermRelations term ) {
+    public boolean isBefore( @NonNull final TermRelations term ) {
         boolean            result      = false;
         boolean            isSearching = true;
         Iterator<Relation> iter        = relations.getOutputCompound( ).iterator( );
@@ -205,7 +205,7 @@ public class TermRelations extends Term {
     }
     
     
-    public boolean isBefore( @NonNull final TermRelations term ) {
+    public boolean isAfter( @NonNull final TermRelations term ) {
         boolean            result      = false;
         boolean            isSearching = true;
         Iterator<Relation> iter        = relations.getInputCompound( ).iterator( );
@@ -231,21 +231,23 @@ public class TermRelations extends Term {
     
     
     public void add( @NonNull final Term term ) {
-        boolean              isSearching = true;
-        Iterator<List<Term>> iter        = children.iterator( );
-        List<Term>           currentList = null;
-        Term                 currentTerm = null;
-        
+        boolean                     isSearching = true;
+        final Iterator<List<Term>>  iter        = children.iterator( );
+        List<Term>                  currentList = null;
+        Term                        currentTerm = null;
+
+        // TODO explained it
         if( children.size( ) > 0 && children.get( 0 ).size( ) > 0 && !( children.get( 0 ).get( 0 ) instanceof TermRelations ) ) {
-            children.add( new ArrayList<Term>( Arrays.asList( term ) ) );
+            children.add( new ArrayList<>( Arrays.asList( term ) ) );
             isSearching = false;
         }
         
         while( isSearching ) {
             if( iter.hasNext( ) ) {
                 currentList = iter.next( );
+                // all terms from the list should to have few common input compound take one is enough (I hope!)
                 currentTerm = currentList.get( 0 );
-                if( term instanceof TermRelations && ( ( TermRelations ) currentTerm ).isVariantOf( ( TermRelations ) term ) ) {
+                if( term instanceof TermRelations && ( ( TermRelations ) currentTerm ).hasAtLeastOneCommonInputCompound( ( TermRelations ) term ) ) {
                     currentList.add( term );
                     isSearching = false;
                 }
