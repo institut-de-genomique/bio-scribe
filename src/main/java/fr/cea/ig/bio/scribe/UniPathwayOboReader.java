@@ -80,7 +80,7 @@ public class UniPathwayOboReader implements Iterable {
         final String directionToken   = "direction";
         String       number           = "";
         String       order            = "";
-        Boolean      isPrimary        = false;
+        Boolean      isPrimary        = true;
         Boolean      isAlternate      = false;
         String       direction        = "";
         String       tmp              = null;

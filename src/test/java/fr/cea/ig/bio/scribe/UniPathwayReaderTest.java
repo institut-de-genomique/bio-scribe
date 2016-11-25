@@ -103,9 +103,9 @@ public class UniPathwayReaderTest extends TestCase {
     @Test
     public void testCardinality( ) {
         ULS           term      = ( ULS ) uniPathwayOboReader.getTerm( "ULS00012" );
-        Relation      relation1 = new Relation( "has_input_compound", "UPC00026", new Cardinality( "1" ), "UPC00026", "2-oxoglutarate" );
-        Relation      relation2 = new Relation( "has_output_compound", "UPC00956", new Cardinality( "1" ), "UPC00956", "L-alpha-aminoadipate" );
-        Relation      relation3 = new Relation( "part_of", "UPA00033", new Cardinality( "1" ) );
+        Relation      relation1 = new Relation( "has_input_compound", "UPC00026", new Cardinality( "1", "", "", true, false ), "UPC00026", "2-oxoglutarate" );
+        Relation      relation2 = new Relation( "has_output_compound", "UPC00956", new Cardinality( "1", "", "", true, false ), "UPC00956", "L-alpha-aminoadipate" );
+        Relation      relation3 = new Relation( "part_of", "UPA00033", new Cardinality( "1", "", "", true, false ) );
         Set<Relation> sr1       = term.getRelation( "has_input_compound" );
         Relation[]    arr1      = sr1.toArray( new Relation[ sr1.size( ) ] );
         Set<Relation> sr2       = term.getRelation( "has_output_compound" );

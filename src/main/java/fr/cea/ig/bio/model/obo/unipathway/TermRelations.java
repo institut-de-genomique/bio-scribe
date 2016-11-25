@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /*
  *
@@ -134,48 +135,74 @@ public class TermRelations extends Term {
     
     
     public boolean hasAtLeastOneCommonOutputCompound( @NonNull final TermRelations term ) {
-        boolean                  result      = false;
-        boolean                  isSearching = true;
-        final Set<Relation>      relation    = relations.getOutputCompound( );
-        final Iterator<Relation> iter        = relation.iterator( );
-        Relation                 rel         = null;
-        while( isSearching ) {
-            if( !iter.hasNext( ) )
-                isSearching = false;
-            else {
-                rel = iter.next( );
-                final Scanner in = new Scanner( rel.getIdRight( ) ).useDelimiter( "[^0-9]+" ); // filter h20 and other basic molecules
-                if( in.nextInt( ) > 30 && term.hasOutputCompound( rel.getIdRight( ) ) ) {
-                    isSearching = false;
-                    result = true;
-                }
-            }
-        }
-        return result;
+        return relations.getInputCompound( )
+                        .stream()
+                        .filter( r -> term.hasOutputCompound( r.getIdLeft( ) ) )
+                        .findFirst()
+                        .isPresent();
         
+    }
+
+
+    public boolean hasAtLeastOnePrimaryCommonOutputCompound( @NonNull final TermRelations term ) {
+        return relations.getOutputCompound( )
+                        .stream()
+                        .filter( r -> r.getCardinality().getIs_primary() )
+                        .filter( r -> term.hasOutputCompound( r.getIdLeft( ) ) )
+                        .findFirst()
+                        .isPresent();
+
     }
     
     
     public boolean hasAtLeastOneCommonInputCompound( @NonNull final TermRelations term ) {
-        boolean                  result      = false;
-        boolean                  isSearching = true;
-        final Set<Relation>      relation    = relations.getInputCompound( );
-        final Iterator<Relation> iter        = relation.iterator( );
-        Relation                 rel         = null;
-        while( isSearching ) {
-            if( !iter.hasNext( ) )
-                isSearching = false;
-            else {
-                rel = iter.next( );
-                final Scanner in = new Scanner( rel.getIdRight( ) ).useDelimiter( "[^0-9]+" ); // filter h20 and other basic molecules
-                if( in.nextInt( ) > 30 && term.hasInputCompound( rel.getIdRight( ) ) ) {
-                    isSearching = false;
-                    result = true;
-                }
-            }
-        }
-        return result;
+        return relations.getOutputCompound( )
+                        .stream()
+                        .filter( r -> term.hasInputCompound( r.getIdLeft( ) ) )
+                        .findFirst()
+                        .isPresent();
         
+    }
+
+
+    public boolean hasAtLeastOnePrimaryCommonInputCompound( @NonNull final TermRelations term ) {
+        return relations.getInputCompound( )
+                        .stream()
+                        .filter( r -> r.getCardinality().getIs_primary() )
+                        .filter( r -> term.hasInputCompound( r.getIdLeft( ) ) )
+                        .findFirst()
+                        .isPresent();
+
+    }
+
+    public boolean hasSamePrimaryOutputCompound( @NonNull final TermRelations term ) {
+        final Relations   relations2 = term.getRelations();
+        final Set<String> compounds1 =   relations.getOutputCompound( )
+                                                  .stream()
+                                                  .filter( r -> r.getCardinality().getIs_primary() )
+                                                  .map( r -> r.getIdLeft() )
+                                                  .collect( Collectors.toSet() );
+        final Set<String> compounds2 =   relations2.getOutputCompound( )
+                                                  .stream()
+                                                  .filter( r -> r.getCardinality().getIs_primary() )
+                                                  .map( r -> r.getIdLeft() )
+                                                  .collect( Collectors.toSet() );
+        return compounds1.equals( compounds2 );
+    }
+
+    public boolean hasSamePrimaryInputCompound( @NonNull final TermRelations term ) {
+        final Relations   relations2 = term.getRelations();
+        final Set<String> compounds1 =   relations.getInputCompound( )
+                                                  .stream()
+                                                  .filter( r -> r.getCardinality().getIs_primary() )
+                                                  .map( r -> r.getIdLeft() )
+                                                  .collect( Collectors.toSet() );
+        final Set<String> compounds2 =   relations2.getInputCompound( )
+                                                  .stream()
+                                                  .filter( r -> r.getCardinality().getIs_primary() )
+                                                  .map( r -> r.getIdLeft() )
+                                                  .collect( Collectors.toSet() );
+        return compounds1.equals( compounds2 );
     }
 
     // This function do not works as one term could be a variant of a group of terms. Thus this function return inconsistent result.
@@ -186,42 +213,22 @@ public class TermRelations extends Term {
     
     
     public boolean isBefore( @NonNull final TermRelations term ) {
-        boolean            result      = false;
-        boolean            isSearching = true;
-        Iterator<Relation> iter        = relations.getOutputCompound( ).iterator( );
-        Relation           output      = null;
-        while( isSearching ) {
-            if( iter.hasNext( ) ) {
-                output = iter.next( );
-                if( term.hasInputCompound( output.getIdLeft( ) ) ) {
-                    result = true;
-                    isSearching = false;
-                }
-            }
-            else
-                isSearching = false;
-        }
-        return result;
+        return relations.getOutputCompound( )
+                        .stream()
+                        .filter( r -> r.getCardinality().getIs_primary() )
+                        .filter( r -> term.hasInputCompound( r.getIdLeft( ) ) )
+                        .findFirst()
+                        .isPresent();
     }
     
     
     public boolean isAfter( @NonNull final TermRelations term ) {
-        boolean            result      = false;
-        boolean            isSearching = true;
-        Iterator<Relation> iter        = relations.getInputCompound( ).iterator( );
-        Relation           input       = null;
-        while( isSearching ) {
-            if( iter.hasNext( ) ) {
-                input = iter.next( );
-                if( term.hasOutputCompound( input.getIdLeft( ) ) ) {
-                    result = true;
-                    isSearching = false;
-                }
-            }
-            else
-                isSearching = false;
-        }
-        return result;
+        return relations.getInputCompound( )
+                        .stream()
+                        .filter( r -> r.getCardinality().getIs_primary() )
+                        .filter( r -> term.hasOutputCompound( r.getIdLeft( ) ) )
+                        .findFirst()
+                        .isPresent();
     }
     
     
@@ -247,14 +254,14 @@ public class TermRelations extends Term {
                 currentList = iter.next( );
                 // all terms from the list should to have few common input compound take one is enough (I hope!)
                 currentTerm = currentList.get( 0 );
-                if( term instanceof TermRelations && ( ( TermRelations ) currentTerm ).hasAtLeastOneCommonInputCompound( ( TermRelations ) term ) ) {
+                if( term instanceof TermRelations && ( ( TermRelations ) currentTerm ).hasAtLeastOnePrimaryCommonInputCompound( ( TermRelations ) term ) ) {
                     currentList.add( term );
                     isSearching = false;
                 }
             }
             else {
                 isSearching = false;
-                children.add( new ArrayList<Term>( Arrays.asList( term ) ) );
+                children.add( new ArrayList<>( Arrays.asList( term ) ) );
             }
         }
         
