@@ -35,7 +35,8 @@ public class Variant implements Iterable<Term > {
     public static void getVariant( @NonNull final List<List<Term>> terms, @NonNull final List<Variant> variantsList ) {
         //Should be: terms.size() > 0 && terms.get( 0 ).size() > 0
         final Variant variant = new Variant( );
-        getVariant( terms, variantsList, variant, 0, 0 );
+        if( terms.size() > 0 && terms.get( 0 ).size() > 0 )
+            getVariant( terms, variantsList, variant, 0, 0 );
     }
     
     private static void getVariant( @NonNull final List<List<Term>> terms, @NonNull final List<Variant> variantsList, @NonNull final Variant variant, final int line, final int column ) {
