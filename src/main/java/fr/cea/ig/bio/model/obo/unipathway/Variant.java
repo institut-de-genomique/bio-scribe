@@ -60,39 +60,6 @@ public class Variant implements Iterable<Term > {
         else
             variantsList.add( variant );
     }
-
-//    private static void getVariant( @NonNull final List<List<Term>> terms, @NonNull List<Variant> variantsList, final int line, final int column ) {
-//        Variant variant = null;
-//        if( line < terms.size( ) && column < terms.get( line ).size( ) ) {
-//            if( variantsList.size( ) > 0 ) {
-//                final Variant           curr_variant    = variantsList.get( variantsList.size( ) - 1 );
-//                final ArrayList<Term>   r               = new ArrayList<>( curr_variant.getTerms( ) );
-//                final Term              next            = terms.get( line ).get( column );
-//                final Term              previous        = r.get( r.size() - 1 );
-//                variant = new Variant( r );
-//                if( next instanceof TermRelations && previous instanceof TermRelations) {
-//                    if( ((TermRelations) next).isAfter( (TermRelations) previous ) )
-//                        curr_variant.add( next );
-//                }
-//            }
-//            else {
-//                final Term next = terms.get( line ).get( column );
-//                variantsList.add( new Variant( next ) );
-//            }
-//            if( line + 1 < terms.size( ) )
-//                getVariant( terms, variantsList, line + 1, 0 );
-//            if( line < terms.size( ) && column + 1 < terms.get( line ).size( ) ) {
-//                if( variant == null ) {
-//                    variant = new Variant( terms.get( line ).get( column + 1 ) );
-//                    variantsList.add( variant );
-//                    getVariant( terms, variantsList, line + 1, 0 );
-//                }
-//                else
-//                    variantsList.add( variant );
-//                getVariant( terms, variantsList, line, column + 1 );
-//            }
-//        }
-//    }
     
     
     public Variant( ) {
