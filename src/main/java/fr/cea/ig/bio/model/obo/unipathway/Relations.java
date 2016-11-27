@@ -33,6 +33,7 @@ public class Relations {
     
     private final Set<Relation> input_compound;
     private final Set<Relation> output_compound;
+    private final Set<Relation> alternate;
     private final Set<Relation> part_of;
     
     
@@ -71,16 +72,18 @@ public class Relations {
      * @param output  Relation to the output
      * @param part_of This relations is contained into a given relations list
      */
-    public Relations( final Set<Relation> input, final Set<Relation> output, final Set<Relation> part_of ) {
-        this.input_compound = input;
-        this.output_compound = output;
-        this.part_of = part_of;
+    public Relations( final Set<Relation> input, final Set<Relation> output, final Set<Relation> alternate, final Set<Relation> part_of ) {
+        this.input_compound     = input;
+        this.output_compound    = output;
+        this.alternate          = alternate;
+        this.part_of            = part_of;
     }
     
     public Relations( ) {
-        this.input_compound = new HashSet<Relation>( );
-        this.output_compound = new HashSet<Relation>( );
-        this.part_of = new HashSet<Relation>( );
+        this.input_compound     = new HashSet<>( );
+        this.output_compound    = new HashSet<>( );
+        this.alternate          = new HashSet<>( );
+        this.part_of            = new HashSet<>( );
     }
     
     public Set<Relation> getInputCompound( ) {
@@ -112,6 +115,10 @@ public class Relations {
         return hasCompound( output_compound, id, false );
     }
     
+    
+    public boolean hasAlternate( @NonNull final String id ){
+        return alternate.stream().anyMatch( r -> r.getIdLeft().equals( id ) );
+    }
     
     @Override
     public String toString( ) {

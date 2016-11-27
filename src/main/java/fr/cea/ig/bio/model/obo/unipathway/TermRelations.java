@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -133,6 +132,16 @@ public class TermRelations extends Term {
         return relations.hasOutputCompound( term.getId( ) );
     }
     
+    
+    public boolean hasAlternate( @NonNull final String id ){
+         return relations.hasAlternate( id );
+    }
+    
+    
+    public boolean hasAlternate( @NonNull final Term term ){
+         return relations.hasAlternate( term.getId( ) );
+    }
+     
     
     public boolean hasAtLeastOneCommonOutputCompound( @NonNull final TermRelations term ) {
         return relations.getInputCompound( )

@@ -49,11 +49,7 @@ public class UniPathwayOboReader implements Iterable {
     }
     
     private static void sort( final List<? extends Term> list ) {
-        Collections.sort( list, new Comparator<Term>( ) {
-            public int compare( Term o1, Term o2 ) {
-                return o1.getId( ).compareTo( o2.getId( ) );
-            }
-        } );
+        Collections.sort( list, ( Comparator<Term> ) ( o1, o2 ) -> o1.getId( ).compareTo( o2.getId( ) ) );
     }
     
     private static String extractQuotedString( @NonNull final String line ) {
@@ -110,16 +106,16 @@ public class UniPathwayOboReader implements Iterable {
         return new Cardinality( number, order, direction, isPrimary, isAlternate );
     }
     
-    private static Term termFactory( @NonNull final String id, @NonNull final String name, @NonNull final String namespace, @NonNull final String definition, final Set<Relation> has_input_compound, final Set<Relation> has_output_compound, final Set<Relation> part_of, final Set<Relation> isA, final Map<String, Set<Reference>> xref, final Relation superPathway ) throws ParseException {
+    private static Term termFactory( @NonNull final String id, @NonNull final String name, @NonNull final String namespace, @NonNull final String definition, final Set<Relation> has_input_compound, final Set<Relation> has_output_compound,  final Set<Relation> alternate, final Set<Relation> part_of, final Set<Relation> isA, final Map<String, Set<Reference>> xref, final Relation superPathway ) throws ParseException {
         Term term = null;
         if( namespace.equals( "reaction" ) )
-            term = new UCR( id, name, definition, xref, new Relations( has_input_compound, has_output_compound, part_of ) );
+            term = new UCR( id, name, definition, xref, new Relations( has_input_compound, has_output_compound, alternate, part_of ) );
         else if( namespace.equals( "enzymatic_reaction" ) )
-            term = new UER( id, name, definition, xref, new Relations( has_input_compound, has_output_compound, part_of ) );
+            term = new UER( id, name, definition, xref, new Relations( has_input_compound, has_output_compound, alternate, part_of ) );
         else if( namespace.equals( "linear_sub_pathway" ) )
-            term = new ULS( id, name, definition, xref, new Relations( has_input_compound, has_output_compound, part_of ) );
+            term = new ULS( id, name, definition, xref, new Relations( has_input_compound, has_output_compound, alternate, part_of ) );
         else if( namespace.equals( "pathway" ) )
-            term = new UPA( id, name, definition, xref, new Relations( has_input_compound, has_output_compound, part_of ), isA, superPathway );
+            term = new UPA( id, name, definition, xref, new Relations( has_input_compound, has_output_compound, alternate, part_of ), isA, superPathway );
         else if( namespace.equals( "compound" ) )
             term = new UPC( id, name, definition, xref );
         else
@@ -128,9 +124,9 @@ public class UniPathwayOboReader implements Iterable {
     }
     
     
-    private void saveTerm( @NonNull final String id, @NonNull final String name, @NonNull final String namespace, @NonNull final String definition, final Set<Relation> has_input_compound, final Set<Relation> has_output_compound, final Set<Relation> part_of, final Set<Relation> isA, final Map<String, Set<Reference>> xref, final Relation superPathway ) throws ParseException {
+    private void saveTerm( @NonNull final String id, @NonNull final String name, @NonNull final String namespace, @NonNull final String definition, final Set<Relation> has_input_compound, final Set<Relation> has_output_compound, final Set<Relation> alternate, final Set<Relation> part_of, final Set<Relation> isA, final Map<String, Set<Reference>> xref, final Relation superPathway ) throws ParseException {
         final Term term            = termFactory( id, name, namespace, definition, has_input_compound,
-                                                  has_output_compound, part_of, isA, xref, superPathway );
+                                                  has_output_compound, alternate, part_of, isA, xref, superPathway );
         boolean isTermWithRelation = true;
         if( term instanceof UPC )
             isTermWithRelation = false;
@@ -264,12 +260,14 @@ public class UniPathwayOboReader implements Iterable {
         String                      definition          = null;
         Set<Relation>               has_input_compound  = new HashSet<>( );
         Set<Relation>               has_output_compound = new HashSet<>( );
+        Set<Relation>               alternate           = new HashSet<>( );
         Set<Relation>               part_of             = new HashSet<>( );
         Set<Relation>               isA                 = new HashSet<>( );
         Map<String, Set<Reference>> xref                = new HashMap<>( );
         Relation                    superPathway        = null;
         final String                tokenInput          = "has_input_compound";
         final String                tokenOutput         = "has_output_compound";
+        final String                tokenAlternate      = "has_alternate_enzymatic_reaction";
         final String                tokenPartOf         = "part_of";
         final String                tokenIsA            = "is_a";
         final String                tokenSuperPathway   = "uniprot_super_pathway";
@@ -291,13 +289,14 @@ public class UniPathwayOboReader implements Iterable {
             else if( line.startsWith( "[Term]" ) ) {
                 if( id != null ) {
                     if( definition == null ) definition = "";
-                    saveTerm( id, name, namespace, definition, has_input_compound, has_output_compound, part_of, isA, xref, superPathway );
+                    saveTerm( id, name, namespace, definition, has_input_compound, has_output_compound, alternate, part_of, isA, xref, superPathway );
                     id                  = null;
                     name                = null;
                     namespace           = null;
                     definition          = null;
                     has_input_compound  = new HashSet<>( );
                     has_output_compound = new HashSet<>( );
+                    alternate           = new HashSet<>( );
                     part_of             = new HashSet<>( );
                     isA                 = new HashSet<>( );
                     xref                = new HashMap<>( );
@@ -317,6 +316,8 @@ public class UniPathwayOboReader implements Iterable {
                     has_input_compound.add( parseRelationShip( tokenInput, line.substring( line.indexOf( tokenInput ) + tokenInput.length( ) ).trim( ) ) );
                 else if( line.contains( tokenOutput ) )
                     has_output_compound.add( parseRelationShip( tokenOutput, line.substring( line.indexOf( tokenOutput ) + tokenOutput.length( ) ).trim( ) ) );
+                else if( line.contains( tokenAlternate ) )
+                    alternate.add( parseRelationShip( tokenAlternate, line.substring( line.indexOf( tokenAlternate ) + tokenAlternate.length( ) ).trim( ) ) );
                 else if( line.contains( tokenPartOf ) )
                     part_of.add( parseRelationShip( tokenPartOf, line.substring( line.indexOf( tokenPartOf ) + tokenPartOf.length( ) ).trim( ) ) );
                 else if( line.contains( tokenSuperPathway ) )
@@ -329,7 +330,7 @@ public class UniPathwayOboReader implements Iterable {
             }
             line = br.readLine( );
         }
-        saveTerm( id, name, namespace, definition, has_input_compound, has_output_compound, part_of, isA, xref, superPathway );
+        saveTerm( id, name, namespace, definition, has_input_compound, has_output_compound, alternate, part_of, isA, xref, superPathway );
         isr.close( );
         br.close( );
     }

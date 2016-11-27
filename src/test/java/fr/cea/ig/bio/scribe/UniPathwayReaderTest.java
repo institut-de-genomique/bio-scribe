@@ -3,6 +3,7 @@ package fr.cea.ig.bio.scribe;
 import fr.cea.ig.bio.model.obo.unipathway.Cardinality;
 import fr.cea.ig.bio.model.obo.unipathway.Relation;
 import fr.cea.ig.bio.model.obo.Term;
+import fr.cea.ig.bio.model.obo.unipathway.UER;
 import fr.cea.ig.bio.model.obo.unipathway.ULS;
 import fr.cea.ig.bio.model.obo.unipathway.UPA;
 import fr.cea.ig.bio.model.obo.unipathway.Variant;
@@ -129,5 +130,12 @@ public class UniPathwayReaderTest extends TestCase {
         assertEquals( arr2[ 0 ].equals( relation2 ), true );
         assertEquals( arr3[ 0 ].equals( relation3 ), true );
         
+    }
+    
+    @Test
+    public void testAlternate(){
+        final UER uer63 = ( UER ) uniPathwayOboReader.getTerm( "UER00063" );
+        assertTrue( uer63.hasAlternate( "UER00949" ) );
+        assertTrue( uer63.hasAlternate( "UER00950" ) );
     }
 }
