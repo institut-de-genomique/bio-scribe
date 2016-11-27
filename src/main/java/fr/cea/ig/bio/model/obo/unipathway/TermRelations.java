@@ -82,9 +82,10 @@ public class TermRelations extends Term {
     
     
     public Set<Relation> getRelation( @NonNull final String type ) {
-        final String tokenInput  = "has_input_compound";
-        final String tokenOutput = "has_output_compound";
-        final String tokenPartOf = "part_of";
+        final String tokenInput     = "has_input_compound";
+        final String tokenOutput    = "has_output_compound";
+        final String tokenAlternate = "has_alternate_enzymatic_reaction";
+        final String tokenPartOf    = "part_of";
         
         Set<Relation> relation = null;
         
@@ -92,6 +93,8 @@ public class TermRelations extends Term {
             relation = relations.getInputCompound( );
         else if( tokenOutput.equals( type ) )
             relation = relations.getOutputCompound( );
+        else if( tokenAlternate.equals( type ) )
+            relation = relations.getAlternate( );
         else if( tokenPartOf.equals( type ) )
             relation = relations.getPartOf( );
         return relation;
