@@ -5,6 +5,7 @@ import lombok.NonNull;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /*
  *
@@ -98,6 +99,11 @@ public class Relations {
     
     public Set<Relation> getPartOf( ) {
         return part_of;
+    }
+    
+    
+    public Set<Relation> getAlternate( ) {
+        return alternate;
     }
     
     
