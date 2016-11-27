@@ -56,11 +56,11 @@ public class UniPathwayReaderTest extends TestCase {
         Variant.getVariant( term.getChildren( ), variants );
         assertEquals( 2, variants.size( ) );
         assertEquals( 2, variants.get( 0 ).size( ) );
-        assertEquals( uls12, variants.get( 0 ).get( 0 ) );
-        assertEquals( uls13, variants.get( 0 ).get( 1 ) );
-        assertEquals( 2, variants.get( 1 ).size( ) );
         assertEquals( uls12, variants.get( 1 ).get( 0 ) );
-        assertEquals( uls14, variants.get( 1 ).get( 1 ) );
+        assertEquals( uls13, variants.get( 1 ).get( 1 ) );
+        assertEquals( 2, variants.get( 1 ).size( ) );
+        assertEquals( uls12, variants.get( 0 ).get( 0 ) );
+        assertEquals( uls14, variants.get( 0 ).get( 1 ) );
     }
 
     @Test
@@ -88,6 +88,18 @@ public class UniPathwayReaderTest extends TestCase {
         List<Variant> variants = new ArrayList<>( );
         Variant.getVariant( term.getChildren( ), variants );
         assertEquals( 4, variants.size( ) );
+    }
+    
+    @Test
+    public void testULSVariant3( ) {
+        UPA              term     = ( UPA ) uniPathwayOboReader.getTerm( "UPA00122" );
+        List<List<Term>> children = term.getChildren( );
+        
+        assertEquals( 3, children.size( ) );
+        
+        List<Variant> variants = new ArrayList<>( );
+        Variant.getVariant( term.getChildren( ), variants );
+        assertEquals( 8, variants.size( ) );
     }
     
     

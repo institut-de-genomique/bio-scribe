@@ -5,7 +5,9 @@ import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -27,40 +29,70 @@ public class Variant implements Iterable<Term > {
      * Result is wrote into variable named variantsList as this function used
      * his reference
      *
-     * @param terms        two dimensional list, the second dimension tell which term is possible to find
+     * @param terms        two dimensional list, the second dimension group processes with at least one same primary input compound
      * @param variantsList convert terms to Disjunctive normal form. It is an inout variable.
      */
-    public static void getVariant( @NonNull final List<List<Term>> terms, @NonNull List<Variant> variantsList ) {
-        getVariant( terms, variantsList, 0, 0 );
+    public static void getVariant( @NonNull final List<List<Term>> terms, @NonNull final List<Variant> variantsList ) {
+        //Should be: terms.size() > 0 && terms.get( 0 ).size() > 0
+        final Variant variant = new Variant( );
+        getVariant( terms, variantsList, variant, 0, 0 );
     }
-
-    private static void getVariant( @NonNull final List<List<Term>> terms, @NonNull List<Variant> variantsList, final int line, final int column ) {
-        Variant variant = null;
-        if( line < terms.size( ) && column < terms.get( line ).size( ) ) {
-            if( variantsList.size( ) > 0 ) {
-                final Variant           curr_variant    = variantsList.get( variantsList.size( ) - 1 );
-                final ArrayList<Term>   r               = new ArrayList<>( curr_variant.getTerms( ) );
-                final Term              next            = terms.get( line ).get( column );
-                final Term              previous        = r.get( r.size() - 1 );
-                variant = new Variant( r );
-                if( next instanceof TermRelations && previous instanceof TermRelations) {
-                    if( ((TermRelations) next).isAfter( (TermRelations) previous ) )
-                        curr_variant.add( next );
-                }
-            }
-            else {
-                final Term next = terms.get( line ).get( column );
-                variant = new Variant( );
-                variantsList.add( new Variant( next ) );
-            }
-            if( line + 1 < terms.size( ) )
-                getVariant( terms, variantsList, line + 1, 0 );
-            if( line < terms.size( ) && column + 1 < terms.get( line ).size( ) && variant.size() > 0 ) {
-                variantsList.add( variant );
-                getVariant( terms, variantsList, line, column + 1 );
+    
+    private static void getVariant( @NonNull final List<List<Term>> terms, @NonNull final List<Variant> variantsList, @NonNull final Variant variant, final int line, final int column ) {
+        if( terms.get( line ).size() > column +1 ){
+            
+            final Variant variant2 = new Variant( variant.children );
+            getVariant( terms, variantsList, variant2, line, column + 1 );
+        }
+        if( line == 0 )
+            variant.add( terms.get( line ).get( column ) );
+        else{
+            final Term  next            = terms.get( line ).get( column );
+            final Term  previous        = variant.get( variant.size() - 1 );
+            if( next instanceof TermRelations && previous instanceof TermRelations) {
+                if( ((TermRelations) next).isAfter( (TermRelations) previous ) )
+                    variant.add(next);
             }
         }
+        if( terms.size() > line +1 ){
+            getVariant( terms, variantsList, variant, line + 1, 0  );
+        }
+        else
+            variantsList.add( variant );
     }
+
+//    private static void getVariant( @NonNull final List<List<Term>> terms, @NonNull List<Variant> variantsList, final int line, final int column ) {
+//        Variant variant = null;
+//        if( line < terms.size( ) && column < terms.get( line ).size( ) ) {
+//            if( variantsList.size( ) > 0 ) {
+//                final Variant           curr_variant    = variantsList.get( variantsList.size( ) - 1 );
+//                final ArrayList<Term>   r               = new ArrayList<>( curr_variant.getTerms( ) );
+//                final Term              next            = terms.get( line ).get( column );
+//                final Term              previous        = r.get( r.size() - 1 );
+//                variant = new Variant( r );
+//                if( next instanceof TermRelations && previous instanceof TermRelations) {
+//                    if( ((TermRelations) next).isAfter( (TermRelations) previous ) )
+//                        curr_variant.add( next );
+//                }
+//            }
+//            else {
+//                final Term next = terms.get( line ).get( column );
+//                variantsList.add( new Variant( next ) );
+//            }
+//            if( line + 1 < terms.size( ) )
+//                getVariant( terms, variantsList, line + 1, 0 );
+//            if( line < terms.size( ) && column + 1 < terms.get( line ).size( ) ) {
+//                if( variant == null ) {
+//                    variant = new Variant( terms.get( line ).get( column + 1 ) );
+//                    variantsList.add( variant );
+//                    getVariant( terms, variantsList, line + 1, 0 );
+//                }
+//                else
+//                    variantsList.add( variant );
+//                getVariant( terms, variantsList, line, column + 1 );
+//            }
+//        }
+//    }
     
     
     public Variant( ) {
@@ -76,7 +108,7 @@ public class Variant implements Iterable<Term > {
     
     public Variant( @NonNull final List<Term> termList ) {
         id          = counter.incrementAndGet( );
-        children    = termList;
+        children    = new ArrayList<>( termList );
     }
     
     
