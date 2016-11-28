@@ -102,6 +102,19 @@ public class UniPathwayReaderTest extends TestCase {
         Variant.getVariant( term.getChildren( ), variants );
         assertEquals( 8, variants.size( ) );
     }
+
+    @Test
+    public void testULSVariant4( ) {
+        UPA              term     = ( UPA ) uniPathwayOboReader.getTerm( "UPA00051" );
+        List<List<Term>> children = term.getChildren( );
+
+        assertEquals( 6, children.size( ) );
+
+        List<Variant> variants = new ArrayList<>( );
+        Variant.getVariant( term.getChildren( ), variants );
+        assertEquals( 8, variants.size( ) );
+    }
+
     
     
     @Test

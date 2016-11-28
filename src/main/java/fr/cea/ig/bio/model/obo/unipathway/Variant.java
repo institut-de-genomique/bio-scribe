@@ -39,7 +39,6 @@ public class Variant implements Iterable<Term > {
     
     private static void getVariant( @NonNull final List<List<Term>> terms, @NonNull final List<Variant> variantsList, @NonNull final Variant variant, final int line, final int column ) {
         if( terms.get( line ).size() > column +1 ){
-            
             final Variant variant2 = new Variant( variant.children );
             getVariant( terms, variantsList, variant2, line, column + 1 );
         }
@@ -80,7 +79,7 @@ public class Variant implements Iterable<Term > {
     
     public Variant( @NonNull final List<Term> termList, @NonNull Set<String> variantId ) {
         id              = counter.incrementAndGet( );
-        children        = termList;
+        children        = new ArrayList<>( termList );
         termVariants    = variantId;
     }
     
