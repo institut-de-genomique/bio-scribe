@@ -114,9 +114,7 @@ public class UniPathwayReaderTest extends TestCase {
         Variant.getVariant( term.getChildren( ), variants );
         assertEquals( 8, variants.size( ) );
     }
-
-    
-    
+      
     @Test
     public void testRelation( ) {
         UPA                term     = ( UPA ) uniPathwayOboReader.getTerm( "UPA00033" );
