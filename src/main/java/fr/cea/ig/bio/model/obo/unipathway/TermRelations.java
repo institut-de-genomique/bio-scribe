@@ -1,12 +1,11 @@
 package fr.cea.ig.bio.model.obo.unipathway;
 
 import fr.cea.ig.bio.model.obo.Term;
+import lombok.Getter;
 import lombok.NonNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -47,8 +46,8 @@ public class TermRelations extends Term {
     
     protected final Relations relations;
     
-    
-    protected List<List<Term>> children;
+    @Getter
+    protected Set<Term> children;
     
     
     /**
@@ -61,7 +60,7 @@ public class TermRelations extends Term {
     public TermRelations( final String id, final String name, final String definition, final Map<String, Set<Reference>> xref, @NonNull final Relations relations ) {
         super( id, name, definition, xref );
         this.relations  = relations;
-        this.children   = new ArrayList<>( );
+        this.children   = new HashSet<>( );
     }
     
     /**
@@ -72,7 +71,7 @@ public class TermRelations extends Term {
     public TermRelations( final String id, final String name, final String definition ) {
         super( id, name, definition );
         this.relations  = new Relations( );
-        this.children   = new ArrayList<>( );
+        this.children   = new HashSet<>( );
     }
     
     
@@ -247,56 +246,45 @@ public class TermRelations extends Term {
     public boolean isLinked( @NonNull final TermRelations term ) {
         return ( isAfter( term ) || isBefore( term ) );
     }
-    
-    
-    public void add( @NonNull final Term term ) {
-        boolean                     isSearching = true;
-        final Iterator<List<Term>>  iter        = children.iterator( );
-        List<Term>                  currentList = null;
-        Term                        currentTerm = null;
 
-        // TODO explained it
-        if( children.size( ) > 0 && children.get( 0 ).size( ) > 0 && !( children.get( 0 ).get( 0 ) instanceof TermRelations ) ) {
-            children.add( new ArrayList<>( Arrays.asList( term ) ) );
-            isSearching = false;
-        }
-        
-        while( isSearching ) {
-            if( iter.hasNext( ) ) {
-                currentList = iter.next( );
-                // all terms from the list should to have few common input compound take one is enough (I hope!)
-                currentTerm = currentList.get( 0 );
-                if( term instanceof TermRelations && ( ( TermRelations ) currentTerm ).hasAtLeastOnePrimaryCommonInputCompound( ( TermRelations ) term ) ) {
-                    currentList.add( term );
-                    isSearching = false;
-                }
-            }
-            else {
-                isSearching = false;
-                children.add( new ArrayList<>( Arrays.asList( term ) ) );
-            }
-        }
-        
+    public void add( @NonNull final Term term ) {
+        children.add( term );
     }
+//
+//    public void add( @NonNull final Term term ) {
+//        boolean                     isSearching = true;
+//        final Iterator<List<Term>>  iter        = children.iterator( );
+//        List<Term>                  currentList = null;
+//        Term                        currentTerm = null;
+//
+//        // TODO explained it
+//        if( children.size( ) > 0 && children.get( 0 ).size( ) > 0 && !( children.get( 0 ).get( 0 ) instanceof TermRelations ) ) {
+//            children.add( new ArrayList<>( Arrays.asList( term ) ) );
+//            isSearching = false;
+//        }
+//
+//        while( isSearching ) {
+//            if( iter.hasNext( ) ) {
+//                currentList = iter.next( );
+//                // all terms from the list should to have few common input compound take one is enough (I hope!)
+//                currentTerm = currentList.get( 0 );
+//                if( term instanceof TermRelations && ( ( TermRelations ) currentTerm ).hasAtLeastOnePrimaryCommonInputCompound( ( TermRelations ) term ) ) {
+//                    currentList.add( term );
+//                    isSearching = false;
+//                }
+//            }
+//            else {
+//                isSearching = false;
+//                children.add( new ArrayList<>( Arrays.asList( term ) ) );
+//            }
+//        }
+//
+//    }
     
     
-    public void addAll( @NonNull final List<List<Term>> terms ) {
+    public void addAll( @NonNull final Collection<Term> terms ) {
         children.addAll( terms );
     }
-    
-    public List<Term> get( final int index ) {
-        return children.get( index );
-    }
-    
-    
-    public Iterator<List<Term>> iterator( ) {
-        return children.iterator( );
-    }
-    
-    
-    public List<List<Term>> getChildren( ) {
-        return children;
-    }
-    
+
     
 }

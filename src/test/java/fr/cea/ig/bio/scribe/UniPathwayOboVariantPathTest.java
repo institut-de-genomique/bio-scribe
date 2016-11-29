@@ -1,17 +1,10 @@
 package fr.cea.ig.bio.scribe;
 
 
-import fr.cea.ig.bio.model.obo.Term;
-import fr.cea.ig.bio.model.obo.unipathway.TermRelations;
-import fr.cea.ig.bio.model.obo.unipathway.Variant;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class UniPathwayOboVariantTest extends TestCase {
+public class UniPathwayOboVariantPathTest extends TestCase {
 
     // Not functional test need to do a newer
     @Test
@@ -22,9 +15,9 @@ public class UniPathwayOboVariantTest extends TestCase {
 //        terms.add( new ArrayList<>( Arrays.asList( new TermRelations( "3a", "3a", "3a" ), new TermRelations( "3b", "3b", "3b" ) ) ) );
 //        terms.add( new ArrayList<>( Arrays.asList( new TermRelations( "4a", "4a", "4a" ), new TermRelations( "4b", "4b", "4b" ) ) ) );
 
-//        List<Variant> variantsList = new ArrayList<Variant>( );
+//        List<VariantPath> variantsList = new ArrayList<VariantPath>( );
 //
-//        Variant.getVariant( terms, variantsList );
+//        VariantPath.getVariant( terms, variantsList );
 //
 //        assertEquals( "1a", variantsList.get( 0 ).get( 0 ).getName( ) );
 //        assertEquals( "2a", variantsList.get( 0 ).get( 1 ).getName( ) );

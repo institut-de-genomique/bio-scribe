@@ -4359,7 +4359,7 @@ gp:Genome_Property_4067
     :category   "METAPATH";
     :threshold  "1";
     :title      "lysine biosynthesis via diaminopimelate (DAP)";
-    :definition "The basic amino acid lysine is synthesized in most bacteria and plants via a nine step pathway from aspartate (via aspartate semialdehyde which is also used in a number of other pathways). Most species utilize succinate (from succinyl-CoA) to make an important amide linkage in the ring-opening of piperidine dicarboxylate. The succinate is then hydrolyzed several steps later. Other species carry out analogous transformations with acetate (from acetyl-CoA). Chlamydia and cyanobacteria have been shown to utilize a direct aminotransferase path without the acylation/deacylation steps, and a number of other species apparently also use this variant. Each of these variants are included within this property. A closely related variant (GenProp0788) utilizes the NADPH-dependent enzyme diaminopimelate dehydrogenase (ddh) which incorporates ammonia directly and creates the meso-isomer of diaminopimelate, bypassing the need for the epimerase, DapE. A completely different pathway via alpha-amino adipate exists in fungi and certain bacteria (GenProp0193). Certain obligate intracellular organisms such as Coxiella, Rickettsia and Wolbachia contain all but the final step of this pathway (diaminopimelate decarboxylase). Presumably these organisms have no need of lysine biosynthesis, being able to obtain it from their hosts. The products of the penultimate two steps, however, (LL- and meso-diaminopimelate) are required components of the bacterial cell wall and so the rest of the pathway persists. The formal possibility that the decarboxylase exists in these organsims but is undetected requires that the state of this property remain 'some evidence' as opposed to 'NO'."
+    :definition "The basic amino acid lysine is synthesized in most bacteria and plants via a nine step pathway from aspartate (via aspartate semialdehyde which is also used in a number of other pathways). Most species utilize succinate (from succinyl-CoA) to make an important amide linkage in the ring-opening of piperidine dicarboxylate. The succinate is then hydrolyzed several steps later. Other species carry out analogous transformations with acetate (from acetyl-CoA). Chlamydia and cyanobacteria have been shown to utilize a direct aminotransferase path without the acylation/deacylation steps, and a number of other species apparently also use this variantPath. Each of these variantPaths are included within this property. A closely related variantPath (GenProp0788) utilizes the NADPH-dependent enzyme diaminopimelate dehydrogenase (ddh) which incorporates ammonia directly and creates the meso-isomer of diaminopimelate, bypassing the need for the epimerase, DapE. A completely different pathway via alpha-amino adipate exists in fungi and certain bacteria (GenProp0193). Certain obligate intracellular organisms such as Coxiella, Rickettsia and Wolbachia contain all but the final step of this pathway (diaminopimelate decarboxylase). Presumably these organisms have no need of lysine biosynthesis, being able to obtain it from their hosts. The products of the penultimate two steps, however, (LL- and meso-diaminopimelate) are required components of the bacterial cell wall and so the rest of the pathway persists. The formal possibility that the decarboxylase exists in these organsims but is undetected requires that the state of this property remain 'some evidence' as opposed to 'NO'."
 .
 gp:Property_Component_265
     a           :FeatureProperty;
@@ -9435,7 +9435,7 @@ gp:Genome_Property_51177
     :category   "METAPATH";
     :threshold  "0";
     :title      "lysine biosynthesis";
-    :definition "The basic amino acid lysine may be synthesized by one of two types of pathways pathways in prokaryotes, the diaminopimelate (DAP) pathways and the alpha-aminoadipate (AAA) pathway. The DAP pathway has several variants including the dehydrogenase (reductive) pathway which requires ammonia and NADPH and the acetylated and succinylated pathways which do not. A non-reductive pathway which uses neither acetate or succinate protecting groups is found in plants but has not been observed in prokaryotes. The AAA pathway has a variant found in fungi and plants which has not been observed in prokaryotes."
+    :definition "The basic amino acid lysine may be synthesized by one of two types of pathways pathways in prokaryotes, the diaminopimelate (DAP) pathways and the alpha-aminoadipate (AAA) pathway. The DAP pathway has several variantPaths including the dehydrogenase (reductive) pathway which requires ammonia and NADPH and the acetylated and succinylated pathways which do not. A non-reductive pathway which uses neither acetate or succinate protecting groups is found in plants but has not been observed in prokaryotes. The AAA pathway has a variantPath found in fungi and plants which has not been observed in prokaryotes."
 .
 gp:Property_Component_60596
     a           :FeatureProperty;
@@ -10777,7 +10777,7 @@ gp:Genome_Property_55201
     :category   "SYSTEM";
     :threshold  "0";
     :title      "mismatch repair";
-    :definition "The combination of MutS (the MutS1 branch but not the MutS2 branch of the MutS family) and MutL leads to a general mechanism for mismatch exision and repair (MMR). Other proteins, recruited by MutS1 and MutL, act to clip (MutH or other endonuclease), remove (UvrD), and resynthesize one strand in the region containing the mismatch. MMR constrasts in its generality with the targeting of specific mismatches by various base excision repair (BER) glycosylases and with variants of MMR that act on specific mismatches. In Escherichia coli and related species that contain the endonuclease MutH and the DNA adenine methylation protein Dam, lack of methylation marks the newly synthesized strand; the mismatch is resolved by excision, removal, and resynthesis of a piece of that strand. MMR is referred to as methyl-directed mismatch repair in this subset of species with MMR."
+    :definition "The combination of MutS (the MutS1 branch but not the MutS2 branch of the MutS family) and MutL leads to a general mechanism for mismatch exision and repair (MMR). Other proteins, recruited by MutS1 and MutL, act to clip (MutH or other endonuclease), remove (UvrD), and resynthesize one strand in the region containing the mismatch. MMR constrasts in its generality with the targeting of specific mismatches by various base excision repair (BER) glycosylases and with variantPaths of MMR that act on specific mismatches. In Escherichia coli and related species that contain the endonuclease MutH and the DNA adenine methylation protein Dam, lack of methylation marks the newly synthesized strand; the mismatch is resolved by excision, removal, and resynthesis of a piece of that strand. MMR is referred to as methyl-directed mismatch repair in this subset of species with MMR."
 .
 gp:Property_Component_48853
     a           :FeatureProperty;
@@ -13756,7 +13756,7 @@ gp:Genome_Property_57298
 gp:Property_Component_51272
     a           :FeatureProperty;
     :id         "51272";
-    :title      "Cas3, Ypest subtype variant";
+    :title      "Cas3, Ypest subtype variantPath";
     :required_by gp:Genome_Property_57298
 .
 gp:Component_Evidence_65884
@@ -17672,7 +17672,7 @@ gp:Component_Evidence_74837
 gp:Property_Component_62998
     a           :FeatureProperty;
     :id         "62998";
-    :title      "putative lipoprotein variant of YSIRK";
+    :title      "putative lipoprotein variantPath of YSIRK";
     :part_of    gp:Genome_Property_58353
 .
 gp:Component_Evidence_84606
@@ -24597,7 +24597,7 @@ gp:Genome_Property_60472
     :category   "PATHWAY";
     :threshold  "0";
     :title      "glyoxalase pathway, glutathione dependent";
-    :definition "Glyoxalase I and glyoxalase II are the enzymes lactoylglutathione lyase (EC 4.4.1.5) and hydroxyacylglutathione hydrolase (EC 3.1.2.6), respectively. This system detoxifies methylglyoxal and other highly reactive aldehydes. Glutathione serves a cofactor; variants of this pathway may occur where glutathione is replaced by another cofactor such as trypanothione in Trypanosoma cruzi (see PMID:16958620)."
+    :definition "Glyoxalase I and glyoxalase II are the enzymes lactoylglutathione lyase (EC 4.4.1.5) and hydroxyacylglutathione hydrolase (EC 3.1.2.6), respectively. This system detoxifies methylglyoxal and other highly reactive aldehydes. Glutathione serves a cofactor; variantPaths of this pathway may occur where glutathione is replaced by another cofactor such as trypanothione in Trypanosoma cruzi (see PMID:16958620)."
 .
 gp:Property_Component_54343
     a           :FeatureProperty;
@@ -31933,7 +31933,7 @@ gp:Genome_Property_66685
     :category   "SYSTEM";
     :threshold  "0";
     :title      "protein sorting system, SipW class";
-    :definition "SipW is a signal peptidase I variant class, found in Bacillus subtilis, Archaeoglobus fulgidus, and scattered other prokaryotic lineages. It appears to recognize a cognate signal sequence variant, many instances of which are detected by model TIGR04088."
+    :definition "SipW is a signal peptidase I variantPath class, found in Bacillus subtilis, Archaeoglobus fulgidus, and scattered other prokaryotic lineages. It appears to recognize a cognate signal sequence variantPath, many instances of which are detected by model TIGR04088."
 .
 gp:Property_Component_63420
     a           :FeatureProperty;
@@ -32561,7 +32561,7 @@ gp:Genome_Property_66706
     :category   "SYSTEM";
     :threshold  "0";
     :title      "protein sorting system, PGF-CTERM/archaeosortase A";
-    :definition "This Genome Property is a strictly archaeal presumed protein sorting system, featuring a variant class of exosortase (TIGR04125) and up to fifteen target proteins per genome with a PGF-CTERM target sequence (TIGR04126)."
+    :definition "This Genome Property is a strictly archaeal presumed protein sorting system, featuring a variantPath class of exosortase (TIGR04125) and up to fifteen target proteins per genome with a PGF-CTERM target sequence (TIGR04126)."
 .
 gp:Property_Component_63515
     a           :FeatureProperty;
@@ -32607,7 +32607,7 @@ gp:Genome_Property_66707
     :category   "SYSTEM";
     :threshold  "0";
     :title      "protein sorting system, PEF-CTERM/archaeosortase C";
-    :definition "This Genome Property is a strictly archaeal presumed protein sorting system, featuring a variant class of exosortase (TIGR03762) and several target proteins per genome with the PEF-CTERM target sequence (TIGR03024)."
+    :definition "This Genome Property is a strictly archaeal presumed protein sorting system, featuring a variantPath class of exosortase (TIGR03762) and several target proteins per genome with the PEF-CTERM target sequence (TIGR03024)."
 .
 gp:Property_Component_63517
     a           :FeatureProperty;
@@ -32743,7 +32743,7 @@ gp:Genome_Property_66711
     :category   "SYSTEM";
     :threshold  "0";
     :title      "protein sorting system, VPXXXP-CTERM/archaeosortase B";
-    :definition "This Genome Property is a strictly archaeal, narrowly distributed protein sorting system, featuring a variant class of exosortase (TIGR04144) and five to nine target proteins per genome with the VPXXXP-CTERM target sequence (TIGR04143). Target proteins tend to be repetitive and most show extensive mutual sequence homology. The first identified species with this system are Methanohalophilus mahii DSM 5219 and Methanohalobium evestigatum Z-7303."
+    :definition "This Genome Property is a strictly archaeal, narrowly distributed protein sorting system, featuring a variantPath class of exosortase (TIGR04144) and five to nine target proteins per genome with the VPXXXP-CTERM target sequence (TIGR04143). Target proteins tend to be repetitive and most show extensive mutual sequence homology. The first identified species with this system are Methanohalophilus mahii DSM 5219 and Methanohalobium evestigatum Z-7303."
 .
 gp:Property_Component_63529
     a           :FeatureProperty;
@@ -32835,7 +32835,7 @@ gp:Genome_Property_66713
     :category   "SYSTEM";
     :threshold  "0";
     :title      "protein sorting system, VPDSG-CTERM/exosortase C";
-    :definition "This Genome Property describes a bacterial rare variant exosortase protein sorting system, with protein sorting motif VPDSG-CTERM (TIGR03778) and its cognate exosortase (TIGR04151)."
+    :definition "This Genome Property describes a bacterial rare variantPath exosortase protein sorting system, with protein sorting motif VPDSG-CTERM (TIGR03778) and its cognate exosortase (TIGR04151)."
 .
 gp:Property_Component_63535
     a           :FeatureProperty;
@@ -32874,7 +32874,7 @@ gp:Genome_Property_66714
 gp:Property_Component_53865
     a           :FeatureProperty;
     :id         "53865";
-    :title      "PEP-CTERM, variant class";
+    :title      "PEP-CTERM, variantPath class";
     :required_by gp:Genome_Property_66714
 .
 gp:Component_Evidence_75284
@@ -32903,7 +32903,7 @@ gp:Genome_Property_66715
     :category   "SYSTEM";
     :threshold  "0";
     :title      "protein sorting system, cyano-PEP-CTERM class";
-    :definition "This Genome Property describes a uniquely cyanobacterial subclass of the PEP-CTERM/exosortase system, restricted to but found in nearly every cyanobacterium outside of Prochlorococcus. The PEP-CTERM variant is somewhat longer at its C-terminus, with much stronger conservation throughout the transmembrane region. At leas one of two forms of cyanobacterial-restricted exosortase (cyanosortase) occurs always occurs as well, occasionally adjacent to a PEP-CTERM protein."
+    :definition "This Genome Property describes a uniquely cyanobacterial subclass of the PEP-CTERM/exosortase system, restricted to but found in nearly every cyanobacterium outside of Prochlorococcus. The PEP-CTERM variantPath is somewhat longer at its C-terminus, with much stronger conservation throughout the transmembrane region. At leas one of two forms of cyanobacterial-restricted exosortase (cyanosortase) occurs always occurs as well, occasionally adjacent to a PEP-CTERM protein."
 .
 gp:Property_Component_63539
     a           :FeatureProperty;
@@ -33143,7 +33143,7 @@ gp:Genome_Property_66721
     :category   "SYSTEM";
     :threshold  "0";
     :title      "protein sorting system, PIP-CTERM/archaeosortase D";
-    :definition "This Genome Property is a strictly archaeal dedicated protein sorting system,featuring a variant class of archaeosortase (TIGR04175) and always exactly one target protein, with target sequence PIP-CTERM (TIGR04173). In each cassette known so far, a short protein with a class III signal peptide (PF04021) sits between the two enzymes."
+    :definition "This Genome Property is a strictly archaeal dedicated protein sorting system,featuring a variantPath class of archaeosortase (TIGR04175) and always exactly one target protein, with target sequence PIP-CTERM (TIGR04173). In each cassette known so far, a short protein with a class III signal peptide (PF04021) sits between the two enzymes."
 .
 gp:Property_Component_63566
     a           :FeatureProperty;
@@ -35235,7 +35235,7 @@ gp:Genome_Property_66804
     :category   "SYSTEM";
     :threshold  "0";
     :title      "type V secretion";
-    :definition "Type V secretion systems (T5SS) are most commonly the classical monomeric autotransporters (type Va), in which a C-terminal outer membrane (OM) beta barrel domain functions as a translocator through the OM for an N-terminal passenger domain of the same polypeptide chain. Many type Va autotransporters cleave autocatalytically to release the passenger domain. In type Vb systems, called two-partner secretion systems, the passenger and translocator domains are in separate polypeptides. Additional variant forms Vc, Vd, and Ve have also been described. A special type of signal peptide (PF13018) tethers the nascent polypeptide chain to the Sec apparatus in some autotransporters to allow proper completion of C-terminal domain folding in the OM."
+    :definition "Type V secretion systems (T5SS) are most commonly the classical monomeric autotransporters (type Va), in which a C-terminal outer membrane (OM) beta barrel domain functions as a translocator through the OM for an N-terminal passenger domain of the same polypeptide chain. Many type Va autotransporters cleave autocatalytically to release the passenger domain. In type Vb systems, called two-partner secretion systems, the passenger and translocator domains are in separate polypeptides. Additional variantPath forms Vc, Vd, and Ve have also been described. A special type of signal peptide (PF13018) tethers the nascent polypeptide chain to the Sec apparatus in some autotransporters to allow proper completion of C-terminal domain folding in the OM."
 .
 gp:Property_Component_64024
     a           :FeatureProperty;

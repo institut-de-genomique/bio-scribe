@@ -6,18 +6,19 @@ import fr.cea.ig.bio.model.obo.Term;
 import fr.cea.ig.bio.model.obo.unipathway.UER;
 import fr.cea.ig.bio.model.obo.unipathway.ULS;
 import fr.cea.ig.bio.model.obo.unipathway.UPA;
-import fr.cea.ig.bio.model.obo.unipathway.Variant;
-import junit.framework.TestCase;
+import fr.cea.ig.bio.model.obo.unipathway.VariantPath;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
-public class UniPathwayReaderTest extends TestCase {
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+public class UniPathwayReaderTest {
     
     private static URL file = Thread.currentThread( ).getContextClassLoader( )
                                     .getResource( "unipath.obo" );
@@ -42,79 +43,162 @@ public class UniPathwayReaderTest extends TestCase {
     
     @Test
     public void testULSVariant1( ) {
-        UPA              term     = ( UPA ) uniPathwayOboReader.getTerm( "UPA00033" );
-        List<List<Term>> children = term.getChildren( );
-        
-        assertEquals( 2, children.size( ) );
-        assertEquals( "ULS00013", children.get( 1 ).get( 0 ).getId( ) );
-        assertEquals( "ULS00014", children.get( 1 ).get( 1 ).getId( ) );
-        
-        ULS uls12 = ( ULS ) uniPathwayOboReader.getTerm( "ULS00012" );
-        ULS uls13 = ( ULS ) uniPathwayOboReader.getTerm( "ULS00013" );
-        ULS uls14 = ( ULS ) uniPathwayOboReader.getTerm( "ULS00014" );
-        
-        List<Variant> variants = new ArrayList<>( );
-        Variant.getVariant( term.getChildren( ), variants );
-        assertEquals( 2, variants.size( ) );
-        assertEquals( 2, variants.get( 0 ).size( ) );
-        assertEquals( uls12, variants.get( 1 ).get( 0 ) );
-        assertEquals( uls13, variants.get( 1 ).get( 1 ) );
-        assertEquals( 2, variants.get( 1 ).size( ) );
-        assertEquals( uls12, variants.get( 0 ).get( 0 ) );
-        assertEquals( uls14, variants.get( 0 ).get( 1 ) );
+        final UPA       upa33    = ( UPA ) uniPathwayOboReader.getTerm( "UPA00033" );
+        final Set<Term> children = upa33.getChildren( );
+
+        assertEquals( 3, children.size( ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00012" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00013" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00014" ) ) );
+
+        final ULS uls12 = ( ULS ) uniPathwayOboReader.getTerm( "ULS00012" );
+        final ULS uls13 = ( ULS ) uniPathwayOboReader.getTerm( "ULS00013" );
+        final ULS uls14 = ( ULS ) uniPathwayOboReader.getTerm( "ULS00014" );
+
+        assertNotNull( uls12 );
+        assertNotNull( uls13 );
+        assertNotNull( uls14 );
+
+        final Set<VariantPath > variantPaths = VariantPath.getVariantFrom( upa33 );
+        assertEquals( 2, variantPaths.size( ) );
+
+        final VariantPath v1 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00013" ) )
+                                           .findFirst().orElse( null );
+        final VariantPath v2 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00014" ) )
+                                           .findFirst().orElse( null );
+        assertNotNull( v1 );
+        assertTrue( v1.has("ULS00012"  ) );
+        assertEquals( 2, v1.size() );
+        assertNotNull( v2 );
+        assertTrue( v2.has("ULS00012"  ) );
+        assertEquals( 2, v2.size() );
     }
 
     @Test
     public void testULSVariant2( ) {
-        UPA term = ( UPA ) uniPathwayOboReader.getTerm( "UPA00034" );
-        List< List< Term > > children = term.getChildren( );
+        final UPA           upa34       = ( UPA ) uniPathwayOboReader.getTerm( "UPA00034" );
+        final Set< Term >   children    = upa34.getChildren( );
 
-        assertEquals( 4, children.size( ) );
+        assertEquals( 7, children.size( ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00006" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00007" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00008" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00009" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00010" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00011" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00227" ) ) );
 
-        assertEquals( 1, children.get( 0 ).size( ) );
-        assertEquals( "ULS00006", children.get( 0 ).get( 0 ).getId( ) );
+        final Set<VariantPath > variantPaths = VariantPath.getVariantFrom( upa34 );
+        assertEquals( 4, variantPaths.size( ) );
 
-        assertEquals( 4, children.get( 1 ).size( ) );
-        assertEquals( "ULS00007", children.get( 1 ).get( 0 ).getId( ) );
-        assertEquals( "ULS00008", children.get( 1 ).get( 1 ).getId( ) );
-        assertEquals( "ULS00010", children.get( 1 ).get( 2 ).getId( ) );
-        assertEquals( "ULS00227", children.get( 1 ).get( 3 ).getId( ) );
+        final VariantPath v1 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00010" ) )
+                                           .findFirst().orElse( null );
+        final VariantPath v2 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00008" ) )
+                                           .findFirst().orElse( null );
+        final VariantPath v3 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00007" ) )
+                                           .findFirst().orElse( null );
+        final VariantPath v4 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00227" ) )
+                                           .findFirst().orElse( null );
+        assertNotNull( v1 );
+        assertTrue( v1.has("ULS00006"  ) );
+        assertTrue( v1.has("ULS00010"  ) );
+        assertTrue( v1.has("ULS00011"  ) );
+        assertEquals( 3, v1.size() );
 
-        assertEquals( 1, children.get( 2 ).size( ) );
-        assertEquals( "ULS00009", children.get( 2 ).get( 0 ).getId( ) );
+        assertNotNull( v2 );
+        assertTrue( v2.has("ULS00006"  ) );
+        assertTrue( v2.has("ULS00008"  ) );
+        assertTrue( v2.has("ULS00009"  ) );
+        assertTrue( v2.has("ULS00011"  ) );
+        assertEquals( 4, v2.size() );
 
-        assertEquals( 1, children.get( 3 ).size( ) );
-        assertEquals( "ULS00011", children.get( 3 ).get( 0 ).getId( ) );
+        assertNotNull( v3 );
+        assertTrue( v3.has("ULS00006"  ) );
+        assertTrue( v3.has("ULS00007"  ) );
+        assertTrue( v3.has("ULS00009"  ) );
+        assertTrue( v3.has("ULS00011"  ) );
+        assertEquals( 4, v3.size() );
 
-        List<Variant> variants = new ArrayList<>( );
-        Variant.getVariant( term.getChildren( ), variants );
-        assertEquals( 4, variants.size( ) );
+        assertNotNull( v4 );
+        assertTrue( v4.has("ULS00006"  ) );
+        assertTrue( v4.has("ULS00227"  ) );
+        assertTrue( v4.has("ULS00009"  ) );
+        assertTrue( v4.has("ULS00011"  ) );
+        assertEquals( 4, v4.size() );
+
     }
-    
+
     @Test
     public void testULSVariant3( ) {
-        UPA              term     = ( UPA ) uniPathwayOboReader.getTerm( "UPA00122" );
-        List<List<Term>> children = term.getChildren( );
-        
-        assertEquals( 3, children.size( ) );
-        
-        List<Variant> variants = new ArrayList<>( );
-        Variant.getVariant( term.getChildren( ), variants );
-        assertEquals( 8, variants.size( ) );
+        final UPA       upa122   = ( UPA ) uniPathwayOboReader.getTerm( "UPA00122" );
+        final Set<Term> children = upa122.getChildren( );
+
+        assertEquals( 7, children.size( ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00483" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00484" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00485" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00486" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00487" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00149" ) ) );
+        assertTrue( children.stream().anyMatch( t -> t.getId().equals( "ULS00150" ) ) );
+
+        final Set<VariantPath > variantPaths = VariantPath.getVariantFrom( upa122 );
+        assertEquals( 6, variantPaths.size( ) );
+
+        final VariantPath v1 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00484" ) && v.has( "ULS00485" ) )
+                                           .findFirst().orElse( null );
+        final VariantPath v2 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00483" ) && v.has( "ULS00485" ) )
+                                           .findFirst().orElse( null );
+        final VariantPath v3 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00150" ) && v.has( "ULS00487" ) )
+                                           .findFirst().orElse( null );
+        final VariantPath v4 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00150" ) && v.has( "ULS00486" ) )
+                                           .findFirst().orElse( null );
+        final VariantPath v5 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00149" ) && v.has( "ULS00487" ) )
+                                           .findFirst().orElse( null );
+        final VariantPath v6 = variantPaths.stream( )
+                                           .filter( v -> v.has( "ULS00149" ) && v.has( "ULS00486" ) )
+                                           .findFirst().orElse( null );
+        assertNotNull( v1 );
+        assertEquals( 2, v1.size() );
+
+        assertNotNull( v2 );
+        assertEquals( 2, v2.size() );
+
+        assertNotNull( v3 );
+        assertEquals( 2, v3.size() );
+
+        assertNotNull( v4 );
+        assertEquals( 2, v4.size() );
+
+        assertNotNull( v5 );
+        assertEquals( 2, v5.size() );
+
+        assertNotNull( v6 );
+        assertEquals( 2, v6.size() );
+
     }
 
     @Test
     public void testULSVariant4( ) {
-        UPA              term     = ( UPA ) uniPathwayOboReader.getTerm( "UPA00051" );
-        List<List<Term>> children = term.getChildren( );
+        final UPA               upa51       = ( UPA ) uniPathwayOboReader.getTerm( "UPA00051" );
+        final Set<Term>         children    = upa51.getChildren( );
+        final Set< VariantPath > variantPaths = VariantPath.getVariantFrom( upa51 );
 
-        assertEquals( 6, children.size( ) );
-
-        List<Variant> variants = new ArrayList<>( );
-        Variant.getVariant( term.getChildren( ), variants );
-        assertEquals( 8, variants.size( ) );
+        assertEquals(11, children.size( ) );
+        assertEquals( 12, variantPaths.size( ) );
     }
-      
+
     @Test
     public void testRelation( ) {
         UPA                term     = ( UPA ) uniPathwayOboReader.getTerm( "UPA00033" );
@@ -123,7 +207,7 @@ public class UniPathwayReaderTest extends TestCase {
         assertTrue( iter.hasNext( ) );
         assertEquals( iter.next( ).toString( ), relation.toString( ) );
     }
-    
+
     @Test
     public void testCardinality( ) {
         ULS           term      = ( ULS ) uniPathwayOboReader.getTerm( "ULS00012" );
@@ -140,9 +224,9 @@ public class UniPathwayReaderTest extends TestCase {
         assertEquals( arr1[ 0 ].equals( relation1 ), true );
         assertEquals( arr2[ 0 ].equals( relation2 ), true );
         assertEquals( arr3[ 0 ].equals( relation3 ), true );
-        
+
     }
-    
+
     @Test
     public void testAlternate(){
         final UER uer63 = ( UER ) uniPathwayOboReader.getTerm( "UER00063" );

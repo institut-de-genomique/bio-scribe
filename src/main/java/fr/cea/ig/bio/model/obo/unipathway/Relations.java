@@ -69,9 +69,10 @@ public class Relations {
     
     
     /**
-     * @param input   Relation entry
-     * @param output  Relation to the output
-     * @param part_of This relations is contained into a given relations list
+     * @param input     Relation entry
+     * @param output    Relation to the output
+     * @param alternate Relation describing an alternate processes
+     * @param part_of   This relations is contained into a given relations list
      */
     public Relations( final Set<Relation> input, final Set<Relation> output, final Set<Relation> alternate, final Set<Relation> part_of ) {
         this.input_compound     = input;

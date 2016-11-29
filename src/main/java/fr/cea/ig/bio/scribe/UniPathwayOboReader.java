@@ -151,7 +151,7 @@ public class UniPathwayOboReader implements Iterable {
             
             final TermRelations termRelation = ( TermRelations ) terms.get( id );
             if( termRelation != null ) {
-                List<List<Term>> children = termRelation.getChildren( );
+                Set< Term > children = termRelation.getChildren( );
                 ( ( TermRelations ) term ).addAll( children );
             }
             
