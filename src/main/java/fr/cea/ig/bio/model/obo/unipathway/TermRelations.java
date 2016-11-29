@@ -123,6 +123,15 @@ public class TermRelations extends Term {
     public boolean hasInputCompound( @NonNull final Term term ) {
         return relations.hasInputCompound( term.getId( ) );
     }
+
+    public boolean hasPrimaryInputCompound( @NonNull final String id ) {
+        return relations.hasPrimaryInputCompound( id );
+    }
+
+
+    public boolean hasPrimaryInputCompound( @NonNull final Term term ) {
+        return relations.hasPrimaryInputCompound( term.getId( ) );
+    }
     
     
     public boolean hasOutputCompound( @NonNull final String id ) {
@@ -132,6 +141,16 @@ public class TermRelations extends Term {
     
     public boolean hasOutputCompound( @NonNull final Term term ) {
         return relations.hasOutputCompound( term.getId( ) );
+    }
+
+
+    public boolean hasPrimaryOutputCompound( @NonNull final String id ) {
+        return relations.hasPrimaryOutputCompound( id );
+    }
+
+
+    public boolean hasPrimaryOutputCompound( @NonNull final Term term ) {
+        return relations.hasPrimaryOutputCompound( term.getId( ) );
     }
     
     

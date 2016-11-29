@@ -116,12 +116,29 @@ public class Relations {
     public boolean hasInputCompound( @NonNull final String id ) {
         return hasCompound( input_compound, id );
     }
+
+
+    public boolean hasPrimaryInputCompound( @NonNull final String id ) {
+        return input_compound.stream()
+                             .filter( r -> r.getCardinality().getIs_primary() )
+                             .filter( r -> r.getIdLeft().equals( id ) )
+                             .findFirst()
+                             .isPresent();
+    }
     
     
     public boolean hasOutputCompound( @NonNull final String id ) {
         return hasCompound( output_compound, id, false );
     }
-    
+
+
+    public boolean hasPrimaryOutputCompound( @NonNull final String id ) {
+        return output_compound.stream()
+                              .filter( r -> r.getCardinality().getIs_primary() )
+                              .filter( r -> r.getIdLeft().equals( id ) )
+                              .findFirst()
+                              .isPresent();
+    }
     
     public boolean hasAlternate( @NonNull final String id ){
         return alternate.stream().anyMatch( r -> r.getIdLeft().equals( id ) );

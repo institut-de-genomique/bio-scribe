@@ -29,8 +29,9 @@ public class VariantPath implements Iterable<TermRelations > {
     }
 
 
-    private static Set<TermRelations> getLinkedTerms( @NonNull final TermRelations termRelations, @NonNull final Set<TermRelations> processes){
+    private static Set<TermRelations> getLinkedTerms( @NonNull final TermRelations termRelations,  @NonNull final List<TermRelations> path, @NonNull final Set<TermRelations> processes){
         return processes.stream()
+                        .filter( t -> path.stream().noneMatch( x -> t == x ) )
                         .filter( t -> t.isAfter( termRelations ) )
                         .collect( Collectors.toSet( ) );
     }
@@ -38,7 +39,7 @@ public class VariantPath implements Iterable<TermRelations > {
     private static Set<VariantPath > getVariants( @NonNull final List<TermRelations> path, @NonNull final Set<TermRelations> processes ){
         final Set<VariantPath > variantPaths = new HashSet<>(  );
         final TermRelations latest   = path.get( path.size() - 1 );
-        final Set<TermRelations> nextTerms  = getLinkedTerms(latest,processes);
+        final Set<TermRelations> nextTerms  = getLinkedTerms(latest, path, processes);
             if( nextTerms.size()  == 0 )
                 variantPaths.add( new VariantPath( path ) );
             else if( nextTerms.size()  == 1 ) {
