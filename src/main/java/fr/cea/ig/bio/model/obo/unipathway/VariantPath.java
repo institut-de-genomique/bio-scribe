@@ -84,6 +84,7 @@ public class VariantPath implements Iterable<TermRelations > {
         return getVariant( termRelations.getChildren( )
                                         .stream( )
                                         .filter( t -> TermRelations.class.isAssignableFrom( t.getClass( ) ) )
+                                        .filter( t -> ! (t instanceof UCR ) )
                                         .map( t -> ( TermRelations ) t )
                                         .collect( Collectors.toSet( ) ) );
     }
