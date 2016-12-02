@@ -38,10 +38,11 @@ public class UniPathwayOboReader implements Iterable {
     private Map<String, Term> terms;
     
     private static String stripId( @NonNull final String termId ) {
-        final String token = "UPa:";
+        final String token = ":"; // before colon is the source Upa usually
         String       result;
-        if( termId.startsWith( token ) ) {
-            result = termId.substring( token.length( ) );
+        final int pos = termId.indexOf( token );
+        if( pos >= 0 ) {
+            result = termId.substring( pos + 1 );
         }
         else
             result = termId;

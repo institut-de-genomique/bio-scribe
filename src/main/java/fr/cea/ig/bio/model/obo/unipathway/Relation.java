@@ -91,12 +91,26 @@ public class Relation {
             result = false;
         else {
             Relation relation = ( Relation ) obj;
-            if( relation.getCardinality( ).equals( cardinality ) &&
-                    relation.getIdLeft( ).equals( idLeft ) &&
-                    relation.getIdRight( ).equals( idRight ) &&
-                    relation.getName( ).equals( name ) &&
-                    relation.getType( ).equals( type ) )
-                result = true;
+            if( relation.getCardinality( ) == null )
+                result = cardinality == null;
+            else
+                result =  relation.getCardinality( ).equals( cardinality );
+            if( relation.getIdLeft( ) == null )
+                result = idLeft == null;
+            else
+                result =  relation.getIdLeft( ).equals( idLeft );
+            if( relation.getIdRight( ) == null )
+                result = idRight == null;
+            else
+                result =  relation.getIdRight( ).equals( idRight );
+            if( relation.getName( ) == null && name != null)
+                result = name == null;
+            else
+                result =  relation.getName( ).equals( name );
+            if( relation.getType( ) == null )
+                result = type == null;
+            else
+                result =  relation.getType( ).equals( type );
         }
         return result;
     }
