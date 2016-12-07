@@ -17,9 +17,9 @@ public class VariantPath implements Iterable<TermRelations > {
     
     private static final AtomicInteger counter = new AtomicInteger( );
     
-    private final long        id;
-    private       List<TermRelations>  children;
-    private       Set<String> termVariants;
+    private final long                  id;
+    private       List<TermRelations>   children;
+    private       Set<String>            termVariants;
     
     private static Set<TermRelations> getStartTerms( @NonNull final Set<TermRelations> children ){
         return children.stream( )
